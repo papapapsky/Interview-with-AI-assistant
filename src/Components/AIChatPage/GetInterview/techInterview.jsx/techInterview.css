@@ -1,0 +1,117 @@
+body {
+  overflow-y: scroll;
+}
+
+.loader {
+  width: 40px;
+  height: 40px;
+  border: 8px solid #464646;
+  border-top: 8px solid var(--linkColor);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes showAnimation {
+  from {
+    margin-top: 80px;
+    opacity: 0;
+  }
+  to {
+    margin-top: initial;
+    opacity: 1;
+  }
+}
+
+.showAnimation {
+  animation: showAnimation 0.6s ease forwards;
+}
+
+.techInterview {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.techInterview h2 {
+  margin: 0;
+  color: white;
+  font-size: 1.4rem;
+}
+
+.geminiTask {
+  margin: 30px;
+  max-width: 1200px;
+}
+
+.geminiTask h4 {
+  white-space: pre-wrap;
+  color: rgba(255, 255, 255, 0.809);
+  margin: 0;
+
+  font-weight: 600;
+}
+
+.geminiTask h3 {
+  color: var(--linkColor);
+}
+
+.geminiTask span {
+  color: var(--linkColor);
+}
+
+.codeExample {
+  padding: 5px;
+  margin: 5px;
+  border-radius: 5px;
+  background-color: rgba(2, 2, 2, 0.53);
+}
+
+details {
+  user-select: none;
+  transition: 0.3s;
+
+  cursor: pointer;
+  outline: none;
+  border: 2px solid var(--linkColor);
+  border-radius: 5px;
+}
+
+summary {
+  padding: 15px;
+}
+
+details:hover {
+  background-color: rgba(150, 79, 248, 0.289);
+}
+
+br {
+  width: 10px;
+  height: 10px;
+  border: 1px solid black;
+  background-color: black;
+  color: black;
+  line-height: 10px;
+}
+
+.userTextArea {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.userTextArea textarea {
+  height: 750px;
+  border-radius: 5px;
+  background-color: rgba(2, 2, 2, 0.53);
+}

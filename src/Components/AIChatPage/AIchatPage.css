@@ -1,0 +1,46 @@
+h1 {
+  text-align: center;
+}
+
+h2 {
+  font-size: 18px;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.258);
+}
+
+input[type="file"] {
+  display: none;
+}
+
+form {
+  display: flex;
+  justify-content: center;
+}
+
+.loadFileForm label {
+  transition: 0.3s;
+  cursor: pointer;
+
+  font-size: 24px;
+  position: relative;
+  top: 40px;
+  display: flex;
+  justify-content: center;
+  width: 400px;
+
+  padding: 20px 50px 20px 50px;
+  border: 2px dashed var(--accentColor);
+}
+
+.loadFileForm label:hover {
+  border-color: rgba(4, 4, 4, 0.675);
+  background-color: var(--buttonColorHover);
+}
+
+.supportedFormats {
+  color: rgba(208, 208, 208, 0.995);
+}
+
+label {
+  margin: 5px;
+}

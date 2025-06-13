@@ -1,0 +1,72 @@
+.Dialog {
+  margin: 0 auto;
+  max-width: 700px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 250px;
+}
+
+.Phrase {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.UserAnswer,
+.GeminiAnswer {
+  box-sizing: border-box;
+  word-wrap: break-word;
+  border-radius: 10px;
+  margin: 10px;
+  padding: 10px;
+  max-width: 80%;
+}
+
+.UserAnswer {
+  align-self: flex-end;
+  background-color: rgba(66, 66, 66, 0.534);
+}
+
+.GeminiAnswer {
+  margin-top: 20px;
+  text-align: left;
+  background-color: rgba(48, 48, 48, 0.534);
+}
+
+.GeminiAnswer p {
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.GeminiAnswer h3 {
+  text-align: left;
+}
+
+.additionToAnswer {
+  margin-left: 20px;
+}
+
+h4 {
+  font-weight: 400;
+}
+
+.resultBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.resultBox a {
+  border: 3px solid violet;
+  font-size: 24px;
+  margin: 20px;
+  color: violet;
+}
+
+@media (max-width: 400px) {
+  .resultBox a {
+    text-align: center;
+    font-size: 14px;
+  }
+}

@@ -1,0 +1,89 @@
+.InterviewMain {
+  max-width: 1200px;
+}
+
+.printableArea {
+  animation: areaHeightDown 0.3s ease forwards;
+
+  flex-direction: column;
+  border: 2px solid var(--buttonColor);
+  z-index: 999;
+  position: fixed;
+  bottom: 0;
+  width: 60%;
+  left: 50%;
+  transform: translate(-50%);
+  margin: 20px auto;
+  background-color: rgb(49, 49, 49);
+  display: flex;
+  justify-content: center;
+  padding-right: 20px;
+  align-items: center;
+  border-radius: 10px;
+}
+
+@keyframes areaHeightUp {
+  from {
+    height: 200px;
+  }
+  to {
+    height: 500px;
+    width: 90%;
+  }
+}
+
+@keyframes areaHeightDown {
+  from {
+    height: 500px;
+    width: 90%;
+  }
+  to {
+    height: 200px;
+    width: 60%;
+  }
+}
+
+.fullScreenBtn {
+  margin-left: 20px;
+  min-width: 20px;
+}
+
+.printableAreaFullscreen {
+  animation: areaHeightUp 0.3s ease forwards;
+}
+
+.printableTextArea {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  background-color: rgba(0, 0, 0, 0.245);
+  resize: none;
+  height: 80%;
+  border-radius: 10px;
+  margin: 10px;
+  font-size: 18px;
+  width: 90%;
+  margin-left: 30px;
+  padding-left: 20px;
+  position: relative;
+  top: 0;
+  padding: 15px;
+
+  border: none;
+  outline: none;
+}
+
+.printableArea button {
+  font-size: 18px;
+  color: white;
+  outline: none;
+  display: flex;
+  justify-content: center;
+  min-width: 30px;
+  max-width: 30px;
+}
+
+.buttonsDiv {
+  width: 90%;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: left;
+}

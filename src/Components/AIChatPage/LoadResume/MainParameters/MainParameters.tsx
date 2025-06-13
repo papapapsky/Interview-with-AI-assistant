@@ -1,0 +1,94 @@
+import "./mainParameters.css";
+import "../CollectResume/collectResume.css";
+import { useContext, useEffect, useRef, useState } from "react";
+import { mainContext } from "../../../../MainContext";
+
+type TypeProps = {
+  setMainParameters: (parameters: TypeParameters) => void;
+};
+
+type TypeParameters = {
+  language: string;
+  questionsQuantity: number;
+};
+
+export const MainParameters = ({ setMainParameters }: TypeProps) => {
+  const context = useContext(mainContext);
+  if (!context) {
+    throw new Error("context undefined");
+  }
+
+  const [state, setState] = context;
+  const [language, setLanguage] = useState<string>("English");
+  const [questionsQuantity, setQuestionsQuantity] = useState<number>(10);
+  const techInterviewCheck = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    const Parameters: TypeParameters = {
+      language,
+      questionsQuantity,
+    };
+    setState({
+      ...state,
+      language: Parameters.language,
+      questionsQuantity: questionsQuantity,
+    });
+    setMainParameters(Parameters);
+  }, [language, questionsQuantity]);
+
+  useEffect(() => {
+    localStorage.setItem("mainParameters", JSON.stringify(state));
+  }, [state]);
+
+  const setQuestions = (number: string) => {
+    const a: any = /[a-zа-яё]/i;
+    if (!a.test(number) && +number <= 20) {
+      setQuestionsQuantity(Number(number));
+    }
+  };
+
+  const checkTechInterview = () => {
+    const checked = techInterviewCheck.current?.checked ?? false;
+    if (checked) {
+      setState({ ...state, techInterview: true });
+    } else {
+      setState({ ...state, techInterview: false });
+    }
+  };
+
+  return (
+    <div className="mainParameters">
+      <div>
+        <div>
+          <label htmlFor="language">HR language:</label>
+          <input
+            type="text"
+            id="language"
+            placeholder="Language"
+            value={language}
+            onChange={(e) => setLanguage(e.target.value)}
+          />
+        </div>
+        <div>
+          <label htmlFor="questions">Questions quantity:</label>
+          <input
+            type="text"
+            id="questions"
+            placeholder="number of questions"
+            value={questionsQuantity}
+            onChange={(e) => setQuestions(e.target.value)}
+          />
+        </div>
+        <div className="techInterviewBox">
+          <label htmlFor="techInterview">Enable technical interview</label>
+          <input
+            type="checkbox"
+            id="techInterview"
+            onChange={checkTechInterview}
+            ref={techInterviewCheck}
+          />
+        </div>
+      </div>
+    </div>
+  );
+};

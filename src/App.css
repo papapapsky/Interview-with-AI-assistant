@@ -1,0 +1,42 @@
+header {
+  display: flex;
+  font-size: 20px;
+  padding-left: 20vw;
+  background-color: var(--headerBackgroundColor);
+}
+
+@media (max-width: 625px) {
+  header {
+    padding-left: 0;
+    font-size: 16px;
+  }
+
+  h1 {
+    font-size: 24px;
+    text-align: center;
+  }
+}
+
+a {
+  transition: 0.3s;
+  text-decoration: none;
+  color: var(--linkColor);
+  padding: 20px;
+}
+
+a:hover,
+.active {
+  background-color: var(--cardBackgroundColor);
+  color: var(--linkColorHover);
+}
+
+.active {
+  color: white;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}

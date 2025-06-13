@@ -1,0 +1,96 @@
+.collectResume {
+  margin-top: 60px;
+}
+
+h3 {
+  text-align: center;
+  font-size: 24px;
+}
+
+select,
+.collectResume input,
+.mainParameters input {
+  border: 2px solid var(--accentColor);
+  background-color: var(--backgroundColor);
+  outline: none;
+  padding: 7px;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+select {
+  width: 106%;
+}
+
+.collectResume form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.Options {
+  max-width: 400px;
+  margin-bottom: 30px;
+}
+
+textarea {
+  border: 2px solid var(--accentColor);
+  background-color: var(--backgroundColor);
+  outline: none;
+  padding: 7px;
+  width: 100%;
+  margin-bottom: 10px;
+
+  resize: vertical;
+  height: 300px;
+}
+
+.loader {
+  border: 8px solid #f3f3f3; /* Светлый фон */
+  border-top: 8px solid #8259ff; /* Синий цвет верхней части */
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+  margin: 20px auto;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.required {
+  color: tomato;
+}
+
+.StartInterviesDiv {
+  flex-direction: column;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.StartInterviesDiv h1 {
+  margin: 0;
+}
+
+.StartInterviesDiv a {
+  transition: 0.3s;
+
+  border-radius: 3px;
+  color: white;
+  font-size: 24px;
+  padding: 5px 20px 5px 20px;
+  background-color: var(--buttonColor);
+}
+
+.StartInterviesDiv a:hover {
+  border-radius: 0;
+  background-color: var(--buttonColorHover);
+}
