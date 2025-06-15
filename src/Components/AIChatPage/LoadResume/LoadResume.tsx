@@ -5,12 +5,14 @@ import { geminiFetch } from "./GeminiFetch";
 import { CollectResume } from "./CollectResume/CollectResume";
 import { CustomLink } from "../../CustomLink";
 import { MainParameters } from "./MainParameters/MainParameters";
+import { Link } from "react-router-dom";
 
 export const LoadResume = () => {
   const apiKey = import.meta.env.VITE_API_KEY;
   const [userResume, setUserResume] = useState<string>("");
   const [questions, setQuestions] = useState<object>({});
   const [fetchLoading, setFetchLoading] = useState<boolean>(false);
+  const [isQuestionLoaded, setIsQuestionLoaded] = useState<boolean>(false);
   const [mainParameters, setMainParameters] = useState<{
     [key: string]: string | number;
   }>({
@@ -20,9 +22,12 @@ export const LoadResume = () => {
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
-
     const contentBox = document.getElementById("loadResume");
     contentBox?.classList.add("showParametersAnimation");
+
+    if (localStorage.getItem("oral responses")) {
+      setIsQuestionLoaded(true);
+    }
   }, []);
 
   const setResume = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -70,6 +75,13 @@ export const LoadResume = () => {
     <div id="loadResume">
       {!fetchLoading && Object.keys(questions).length === 0 && (
         <div>
+          <h3>
+            {isQuestionLoaded && (
+              <Link to="/AIChat/OralInterview" className="continueInterview">
+                Continue interview
+              </Link>
+            )}
+          </h3>
           <h1>Let`s take interview!</h1>
           <MainParameters setMainParameters={setMainParameters} />
           <h2 style={{ margin: 0, marginTop: 50 }}>
