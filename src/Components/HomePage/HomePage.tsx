@@ -45,7 +45,7 @@ export const HomePage = () => {
             <CustomLink to="/AIChat">Start</CustomLink>
           </div>
           <div className="HRimage">
-            <img src={HRimage} alt="" />
+            <img src={HRimage} alt="" className="HRimage" />
           </div>
         </div>
         <br />

@@ -10,6 +10,7 @@ h3 {
 select,
 .collectResume input,
 .mainParameters input {
+  border-radius: 5px;
   border: 2px solid var(--accentColor);
   background-color: var(--backgroundColor);
   outline: none;

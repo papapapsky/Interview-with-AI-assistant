@@ -1,0 +1,28 @@
+.modalPictureBox {
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.697);
+  z-index: 999;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+
+  transform: translate(-50%, -50%);
+}
+
+@media (max-width: 400px) {
+  .modalPicture {
+    width: 300px;
+  }
+}
+
+.modalPicture {
+  cursor: pointer;
+  max-width: 400px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border: 3px solid var(--linkColor);
+
+  transform: translate(-50%, -50%);
+}
