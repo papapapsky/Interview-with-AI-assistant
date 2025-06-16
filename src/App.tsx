@@ -5,7 +5,7 @@ import { HomePage } from "./Components/HomePage/HomePage";
 import { AIChatPage } from "./Components/AIChatPage/AIChatPage";
 import { InterviewPage } from "./Components/AIChatPage/GetInterview/oralInterview/InterviewPage";
 import { MainContext } from "./MainContext";
-import { TechInterviewPage } from "./Components/AIChatPage/GetInterview/techInterview.jsx/TechInterviewPage";
+import { TechInterviewPage } from "./Components/AIChatPage/GetInterview/techInterview/TechInterviewPage";
 
 function App() {
   return (

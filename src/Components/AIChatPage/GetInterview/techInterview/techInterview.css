@@ -12,6 +12,13 @@ body {
   margin: 0 auto;
 }
 
+.mistake {
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: tomato;
+  margin: 10px;
+}
+
 @keyframes spin {
   0% {
     transform: rotate(0deg);

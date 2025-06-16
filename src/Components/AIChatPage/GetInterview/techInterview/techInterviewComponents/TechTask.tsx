@@ -1,29 +1,13 @@
-import { useEffect, useRef, useState } from "react";
+import "../techInterview.css";
+import { useEffect } from "react";
 import { geminiFetch } from "../../../LoadResume/GeminiFetch";
 import { techInterviewConfig } from "../../oralInterview/geminiConfigs";
 import { checkAnswerPrompt, generateTasksPrompt } from "./techPrompts";
-import { TechInterviewEnd } from "./techInterviewEnd";
+import { InterviewEnd } from "./techInterviewEnd";
+import type { ITechTaskProps } from "./types/types";
 
-type TypeTask = {
-  taskExplanation: string[];
-  exampleCode: string[];
-  technologies: string;
-};
-
-interface ITechTaskProps {
-  questionsQuantity: number;
-  setTasksQuantity: (tasksQuantity: number) => void;
-}
-
-export const TechTask = ({
-  questionsQuantity,
-  setTasksQuantity,
-}: ITechTaskProps) => {
+export const TechTask = ({ ...props }: ITechTaskProps) => {
   const apiKey = import.meta.env.VITE_API_KEY;
-  const [userResume, setUserResume] = useState<string>("");
-  const [tasks, setTasks] = useState<TypeTask[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const userCodeResponse = useRef<HTMLTextAreaElement | null>(null);
 
   const storageResume = localStorage.getItem("userResume");
   const userLanguage =
@@ -32,52 +16,66 @@ export const TechTask = ({
 
   useEffect(() => {
     if (storageResume) {
-      setUserResume(storageResume);
+      props.setUserResume(storageResume);
     }
   }, [storageResume]);
 
   useEffect(() => {
-    if (userResume) {
+    if (props.userResume) {
       const techTaskGenerate = async () => {
         try {
-          setLoading(true);
-          const TasksPrompt = generateTasksPrompt(userLanguage, userResume);
+          props.setLoading(true);
+          const TasksPrompt = generateTasksPrompt(
+            userLanguage,
+            props.userResume
+          );
           const techTasks = await geminiFetch(
             apiKey,
             TasksPrompt,
             techInterviewConfig
           );
-          const parsedTasks = JSON.parse(`${techTasks.text}`) as TypeTask[];
-          setTasks(parsedTasks);
+          const parsedTasks = JSON.parse(`${techTasks.text}`);
+          props.setTasks(parsedTasks);
         } catch (err) {
           console.error("Ошибка при генерации задач:", err);
         } finally {
-          setLoading(false);
+          props.setLoading(false);
         }
       };
       techTaskGenerate();
     }
-  }, [userResume, userLanguage]);
+  }, [props.userResume, userLanguage]);
+
+  const ifCorrectAnswer = () => {
+    props.setQuestionMistakes(0);
+    props.setTasks(props.tasks.slice(1));
+    props.setTasksQuantity(5 - props.tasks.length);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   const nextTask = () => {
     const checkTheAnswer = async () => {
-      if (!userCodeResponse.current) return;
+      if (!props.userCodeResponse.current) return;
 
       try {
         const CheckPrompt = checkAnswerPrompt(
-          tasks[0].taskExplanation.join(" "),
-          userCodeResponse.current.value
+          props.tasks[0].taskExplanation.join(" "),
+          props.userCodeResponse.current.value
         );
         const geminiChecks = await geminiFetch(apiKey, CheckPrompt);
-
         const result = JSON.parse(`${geminiChecks.text}`);
 
         if (result.checkCorrectlyAnswer) {
-          userCodeResponse.current.value =
+          props.userCodeResponse.current.value =
             "//for code redactor recommended https://codepen.io/";
-          setTasks((prev) => prev.slice(1));
-          setTasksQuantity(5 - tasks.length);
-          window.scrollTo({ top: 0, behavior: "smooth" });
+          ifCorrectAnswer();
+        } else {
+          props.setQuestionMistakes(props.questionMistakes + 1);
+
+          if (props.questionMistakes === 3) {
+            ifCorrectAnswer();
+            props.setGlobalMistakes(props.globalMistakes + 1);
+          }
         }
       } catch (error) {
         console.error("Ошибка при проверке ответа:", error);
@@ -88,31 +86,33 @@ export const TechTask = ({
   };
 
   useEffect(() => {
-    if (!loading) {
+    if (!props.loading) {
       const componentBox = document.querySelector(".geminiTask");
       componentBox?.classList.add("showAnimation");
     }
-  }, [loading]);
+  }, [props.loading]);
 
   return (
     <div className="geminiTask">
-      {loading && (
+      {props.loading && (
         <>
           <div className="loader"></div>
           <h3>Please wait, HR selects questions...</h3>
         </>
       )}
-      {tasks.length > 0 && (
+      {props.tasks.length > 0 && (
         <>
           <div className="taskExplanation">
             <h3>Task explanation</h3>
             <div className="explanation">
               <h5>
-                Technologies: <span>{tasks[0].technologies}</span>
+                Technologies: <span>{props.tasks[0].technologies}</span>
               </h5>
-              {tasks[0].taskExplanation.map((val, index) => (
-                <h4 key={index}>{val}</h4>
-              ))}
+              {props.tasks[0].taskExplanation.map(
+                (val: string, index: number) => (
+                  <h4 key={index}>{val}</h4>
+                )
+              )}
             </div>
           </div>
           <div className="taskExplanation">
@@ -120,9 +120,11 @@ export const TechTask = ({
             <details>
               <summary>Show code example</summary>
               <div className="codeExample">
-                {tasks[0].exampleCode.map((val, index) => (
-                  <h4 key={index}>{val}</h4>
-                ))}
+                {props.tasks[0].exampleCode.map(
+                  (val: string, index: number) => (
+                    <h4 key={index}>{val}</h4>
+                  )
+                )}
               </div>
             </details>
           </div>
@@ -130,14 +132,19 @@ export const TechTask = ({
           <div className="userTextArea">
             <h3>Write your response here:</h3>
             <textarea
-              ref={userCodeResponse}
+              ref={props.userCodeResponse}
               defaultValue="//for code redactor recommended https://codepen.io/"
             ></textarea>
+            {props.questionMistakes > 0 && (
+              <div className="mistake">
+                Wrong answer! {props.questionMistakes} / 3
+              </div>
+            )}
             <button onClick={nextTask}>Next Task</button>
           </div>
         </>
       )}
-      <TechInterviewEnd questionsQuantity={questionsQuantity} />
+      <InterviewEnd questionsQuantity={props.questionsQuantity} />
     </div>
   );
 };
