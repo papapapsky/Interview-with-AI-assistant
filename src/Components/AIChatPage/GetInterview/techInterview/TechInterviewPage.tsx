@@ -8,13 +8,16 @@ export const TechInterviewPage = () => {
   return (
     <div className="techInterview">
       <h1>Technical interview</h1>
-      {tasksQuantity <= 3 && <h2>Your task {tasksQuantity}/ 3</h2>}
+      {tasksQuantity <= 3 && (
+        <h2>
+          Your task <span className="tasksQuantity">{tasksQuantity} / 3 </span>
+        </h2>
+      )}
 
       <TechTaskStates
         questionsQuantity={tasksQuantity}
         setTasksQuantity={setTasksQuantity}
       />
-      {/* <InterviewEnd questionsQuantity={tasksQuantity} /> */}
     </div>
   );
 };

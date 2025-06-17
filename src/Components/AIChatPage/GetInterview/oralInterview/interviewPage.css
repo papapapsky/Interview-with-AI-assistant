@@ -7,10 +7,27 @@
   margin-bottom: 250px;
 }
 
+h4 {
+  margin: 10px;
+}
+
 .Phrase {
   display: flex;
   flex-direction: column;
   width: 100%;
+}
+
+.HRimg {
+  height: 50px;
+  width: 50px;
+}
+
+.HRbox {
+  display: flex;
+}
+
+.GeminiAnswer {
+  border: 3px solid var(--linkColor);
 }
 
 .UserAnswer,
@@ -45,6 +62,10 @@
 
 .additionToAnswer {
   margin-left: 20px;
+}
+
+.HRbox span {
+  color: var(--linkColor);
 }
 
 h4 {

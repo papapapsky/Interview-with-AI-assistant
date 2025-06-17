@@ -19,6 +19,7 @@ export const LoadResume = () => {
     language: "English",
     questionsQuantity: 10,
   });
+  const [fetchError, setFetchError] = useState(false);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -51,29 +52,30 @@ export const LoadResume = () => {
     setUserResume(text);
   };
 
+  const showGPTresponse = async () => {
+    if (!userResume) return;
+    setFetchLoading(true);
+    setFetchError(false);
+
+    try {
+      const response = await geminiFetch(apiKey, userResume);
+      const parseQuestions = `${response.text}`;
+      setQuestions(JSON.parse(parseQuestions));
+      localStorage.setItem("oral responses", parseQuestions);
+    } catch (error) {
+      setFetchError(true);
+    } finally {
+      setFetchLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const showGPTresponse = async () => {
-      if (!userResume) return;
-      setFetchLoading(true);
-
-      try {
-        const response = await geminiFetch(apiKey, userResume);
-        const parseQuestions = `${response.text}`;
-        setQuestions(JSON.parse(parseQuestions));
-        localStorage.setItem("oral responses", parseQuestions);
-      } catch (error) {
-        console.error(error);
-      } finally {
-        setFetchLoading(false);
-      }
-    };
-
     showGPTresponse();
   }, [userResume]);
 
   return (
     <div id="loadResume">
-      {!fetchLoading && Object.keys(questions).length === 0 && (
+      {!fetchLoading && !fetchError && Object.keys(questions).length === 0 && (
         <div>
           <h3>
             {isQuestionLoaded && (
@@ -103,6 +105,14 @@ export const LoadResume = () => {
         <div>
           <div className="loader"></div>
           <h2>Please wait, AI generating questions...</h2>
+        </div>
+      )}
+      {fetchError && (
+        <div>
+          <h3>Request error, please try again</h3>
+          <button onClick={() => showGPTresponse()} className="ifErrorBtn">
+            Try again
+          </button>
         </div>
       )}
       {Object.keys(questions).length > 0 && (

@@ -1,3 +1,4 @@
+import HR from "../../../../../public/HR.png";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -29,8 +30,11 @@ export const GeminiAnswerFormat = ({
   return (
     <>
       <div className="GeminiAnswer">
-        <h3>
-          <b>Your response is</b> {geminiResponse.answerStatus}
+        <h3 className="HRbox">
+          <img src={HR} alt="" className="HRimg" />
+          <b>
+            Your response <span>{geminiResponse.answerStatus}</span>
+          </b>
         </h3>
         {geminiResponse.explation &&
           geminiResponse.explanation.map((value: string, index: number) => (

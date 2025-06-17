@@ -39,6 +39,10 @@ body {
   }
 }
 
+#homePage {
+  opacity: 0;
+}
+
 .showAnimation {
   animation: showAnimation 0.6s ease forwards;
 }
@@ -53,6 +57,10 @@ body {
   margin: 0;
   color: white;
   font-size: 1.4rem;
+}
+
+.tasksQuantity {
+  color: var(--linkColor);
 }
 
 .geminiTask {

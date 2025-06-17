@@ -11,6 +11,8 @@ export interface ITechTaskProps {
   setUserResume: (resume: string) => void;
   tasks: TypeTask[];
   setTasks: (tasks: TypeTask[] | ((prev: TypeTask[]) => TypeTask[])) => void;
+  error: boolean;
+  setError: (error: boolean) => void;
   loading: boolean;
   setLoading: (loading: boolean) => void;
   userCodeResponse: any;

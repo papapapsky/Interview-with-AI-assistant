@@ -20,6 +20,7 @@ export const HomePage = () => {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
+            console.log(window.scrollY);
             entry.target.classList.add("lazyServiceOptions");
             observer.unobserve(entry.target);
           }

@@ -1,3 +1,4 @@
+import HR from "../../../../../public/HR.png";
 import { useEffect, useState, type ReactElement } from "react";
 import PrintableArea from "../PrintableArea/PrintableArea";
 import "./interviewPage.css";
@@ -66,8 +67,9 @@ export const InterviewPage = (): ReactElement => {
       <h1>HR interview</h1>
       {currentQuestionIndex < Object.keys(questions).length && (
         <div className="Phrase">
-          <div className="GeminiAnswer">
-            {questions[`question${currentQuestionIndex + 1}`]}
+          <div className="GeminiAnswer HRbox">
+            <img src={HR} alt="" className="HRimg" style={{ marginTop: 10 }} />{" "}
+            <h4>{questions[`question${currentQuestionIndex + 1}`]}</h4>
           </div>
         </div>
       )}

@@ -17,6 +17,7 @@ export const TechTaskStates = ({
   const userCodeResponse = useRef<HTMLTextAreaElement | null>(null);
   const [questionMistakes, setQuestionMistakes] = useState<number>(0);
   const [globalMistakes, setGlobalMistakes] = useState<number>(0);
+  const [error, setError] = useState<boolean>(false);
 
   return (
     <TechTask
@@ -26,6 +27,8 @@ export const TechTaskStates = ({
       setUserResume={setUserResume}
       tasks={tasks}
       setTasks={setTasks}
+      error={error}
+      setError={setError}
       loading={loading}
       setLoading={setLoading}
       userCodeResponse={userCodeResponse}

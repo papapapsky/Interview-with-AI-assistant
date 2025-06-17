@@ -9,22 +9,22 @@ import { TechInterviewPage } from "./Components/AIChatPage/GetInterview/techInte
 
 function App() {
   return (
-    <MainContext>
-      <BrowserRouter>
-        <header>
-          <CustomLink index to="/">
-            Home
-          </CustomLink>
-          <CustomLink to="/AIChat">Chat</CustomLink>
-        </header>
+    <BrowserRouter>
+      <header>
+        <CustomLink index to="/">
+          Home
+        </CustomLink>
+        <CustomLink to="/AIChat">Chat</CustomLink>
+      </header>
+      <MainContext>
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/AIChat" element={<AIChatPage />} />
           <Route path="/AIChat/OralInterview" element={<InterviewPage />} />
           <Route path="/AiChat/TechInterview" element={<TechInterviewPage />} />
         </Routes>
-      </BrowserRouter>
-    </MainContext>
+      </MainContext>
+    </BrowserRouter>
   );
 }
 

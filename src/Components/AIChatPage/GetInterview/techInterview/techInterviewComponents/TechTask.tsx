@@ -5,6 +5,7 @@ import { techInterviewConfig } from "../../oralInterview/geminiConfigs";
 import { checkAnswerPrompt, generateTasksPrompt } from "./techPrompts";
 import { InterviewEnd } from "./techInterviewEnd";
 import type { ITechTaskProps } from "./types/types";
+import { geminiValidation } from "./geminiFetchValidation/geminiValidation";
 
 export const TechTask = ({ ...props }: ITechTaskProps) => {
   const apiKey = import.meta.env.VITE_API_KEY;
@@ -20,28 +21,33 @@ export const TechTask = ({ ...props }: ITechTaskProps) => {
     }
   }, [storageResume]);
 
+  const techTaskGenerate = async () => {
+    try {
+      props.setError(false);
+      props.setLoading(true);
+      const TasksPrompt = generateTasksPrompt(userLanguage, props.userResume);
+      const techTasks = await geminiFetch(
+        apiKey,
+        TasksPrompt,
+        techInterviewConfig
+      );
+      const parsedTasks = JSON.parse(`${techTasks.text}`);
+      const validation = geminiValidation(parsedTasks);
+
+      if (validation) {
+        props.setTasks(parsedTasks);
+      } else {
+        props.setError(true);
+      }
+    } catch (err) {
+      console.error("Ошибка при генерации задач:", err);
+    } finally {
+      props.setLoading(false);
+    }
+  };
+
   useEffect(() => {
     if (props.userResume) {
-      const techTaskGenerate = async () => {
-        try {
-          props.setLoading(true);
-          const TasksPrompt = generateTasksPrompt(
-            userLanguage,
-            props.userResume
-          );
-          const techTasks = await geminiFetch(
-            apiKey,
-            TasksPrompt,
-            techInterviewConfig
-          );
-          const parsedTasks = JSON.parse(`${techTasks.text}`);
-          props.setTasks(parsedTasks);
-        } catch (err) {
-          console.error("Ошибка при генерации задач:", err);
-        } finally {
-          props.setLoading(false);
-        }
-      };
       techTaskGenerate();
     }
   }, [props.userResume, userLanguage]);
@@ -94,6 +100,12 @@ export const TechTask = ({ ...props }: ITechTaskProps) => {
 
   return (
     <div className="geminiTask">
+      {props.error && (
+        <>
+          <h3>Request error, please try again</h3>
+          <button onClick={() => techTaskGenerate()}>Try again</button>
+        </>
+      )}
       {props.loading && (
         <>
           <div className="loader"></div>
