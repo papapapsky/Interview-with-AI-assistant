@@ -18,15 +18,18 @@ img {
 }
 
 .Title h4 {
+  margin-left: 0;
   text-align: left;
+  margin-bottom: 20px;
 }
 
 .Title h1 {
+  margin-bottom: 20px;
   text-align: left;
 }
 
 main button {
-  width: 150px;
+  margin-top: 50px;
 }
 
 button,
@@ -211,7 +214,8 @@ li {
   }
 }
 
-.Title a {
+.Title a,
+.aboutWebsite a {
   transition: 0.3s;
 
   background-color: var(--buttonColor);
@@ -234,7 +238,8 @@ li span {
   color: var(--linkColor);
 }
 
-.Title a:hover {
+.Title a:hover,
+.aboutWebsite a:hover {
   background-color: var(--buttonColorHover);
 }
 

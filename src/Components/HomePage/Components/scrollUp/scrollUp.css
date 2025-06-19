@@ -1,0 +1,43 @@
+.ScrollUp {
+  transition: 0.3s;
+  z-index: 998;
+
+  cursor: pointer;
+  background-color: var(--linkColor);
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  border: 1px solid rgb(67, 67, 67);
+}
+
+.disabled {
+  opacity: 0;
+  visibility: hidden;
+}
+
+@keyframes showButton {
+  to {
+    visibility: visible;
+    opacity: 1;
+  }
+}
+
+.active {
+  animation: showButton 0.3s easea forwards;
+}
+
+.ScrollUp:hover {
+  background-color: var(--linkColorHover);
+}
+
+.Arrow {
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-weight: 700;
+}

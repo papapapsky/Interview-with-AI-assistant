@@ -3,16 +3,21 @@ import HRimage from "../../../public/HRimage.png";
 
 import { ServiceOptions } from "./Components/ServiceOptions";
 import { HowItWorks } from "./Components/HowItWorks";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { CustomLink } from "../CustomLink";
 import { WebSiteDescription } from "./Components/WebsiteDescription";
+import { ScrollUp } from "./Components/scrollUp/ScrollUp";
 
 export const HomePage = () => {
-  useEffect(() => {
-    window.scrollTo({ top: 0 });
+  const [animation, setAnimation] = useState<string>("");
 
-    const contentBox = document.getElementById("homePage");
-    contentBox?.classList.add("showAnimation");
+  useEffect(() => {
+    if (history.scrollRestoration) {
+      history.scrollRestoration = "manual";
+    }
+
+    setAnimation("showAnimation");
+    window.scrollTo({ top: 0 });
   }, []);
 
   useEffect(() => {
@@ -20,7 +25,6 @@ export const HomePage = () => {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            console.log(window.scrollY);
             entry.target.classList.add("lazyServiceOptions");
             observer.unobserve(entry.target);
           }
@@ -28,7 +32,6 @@ export const HomePage = () => {
       },
       { threshold: 0.1 }
     );
-
     const elements = document.querySelectorAll(".inactive");
 
     elements.forEach((el) => observer.observe(el));
@@ -38,12 +41,13 @@ export const HomePage = () => {
 
   return (
     <>
-      <main id="homePage">
+      <ScrollUp />
+      <main id="homePage" className={animation}>
         <div className="greetings">
           <div className="Title">
             <h1>Interviewing the new generation.</h1>
             <h4>Prepare for real interviews with artificial intelligence</h4>
-            <CustomLink to="/AIChat">Start</CustomLink>
+            <CustomLink to="/AIChat">Start interview</CustomLink>
           </div>
           <div className="HRimage">
             <img src={HRimage} alt="" className="HRimage" />
@@ -63,6 +67,7 @@ export const HomePage = () => {
             <ServiceOptions />
             <h1>How it works?</h1>
             <HowItWorks />
+            <CustomLink to="/AIChat">Start interview</CustomLink>
           </div>
         </div>
       </main>
