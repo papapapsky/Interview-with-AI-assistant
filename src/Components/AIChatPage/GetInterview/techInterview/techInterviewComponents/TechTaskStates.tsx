@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import { TechTask } from "./TechTask";
-import type { TypeTask } from "./types/types";
+import type { TypeTask } from "../../../../../types/types";
 
 interface tasksProps {
   questionsQuantity: number;
@@ -14,7 +14,7 @@ export const TechTaskStates = ({
   const [userResume, setUserResume] = useState<string>("");
   const [tasks, setTasks] = useState<TypeTask[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
-  const userCodeResponse = useRef<HTMLTextAreaElement | null>(null);
+  const userCodeResponse = useRef<any>(null);
   const [questionMistakes, setQuestionMistakes] = useState<number>(0);
   const [globalMistakes, setGlobalMistakes] = useState<number>(0);
   const [error, setError] = useState<boolean>(false);

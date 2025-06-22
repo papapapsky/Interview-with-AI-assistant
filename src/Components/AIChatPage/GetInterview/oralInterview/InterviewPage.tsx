@@ -2,12 +2,10 @@ import HR from "../../../../../public/HR.png";
 import { useEffect, useState, type ReactElement } from "react";
 import PrintableArea from "../PrintableArea/PrintableArea";
 import "./interviewPage.css";
-import { geminiFetch } from "../../LoadResume/GeminiFetch";
 import { GeminiAnswerFormat } from "./geminiAnswerFormat";
-import { interviewConfig } from "./geminiConfigs";
+import { aiMessageGenerate } from "./AImessage/AIMessageGenerate";
 
 export const InterviewPage = (): ReactElement => {
-  const apiKey = import.meta.env.VITE_API_KEY;
   const [userAnswers, setUserAnswers] = useState<string[]>([]);
   const [geminiAnswers, setGeminiAnswers] = useState<any[]>([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
@@ -33,28 +31,15 @@ export const InterviewPage = (): ReactElement => {
   }, []);
   useEffect(() => {
     if (userAnswers.length > 0) {
-      const AImessageGenerate = async () => {
-        setGeminiActive(true);
-        const currentQuestionKey = `question${userAnswers.length}`;
-        const userAnswerKey = userAnswers.length - 1;
-        if (questions[currentQuestionKey]) {
-          const AImessage = await geminiFetch(
-            apiKey,
-            `ANSWER ON ${parsedState.language}. This is a question: ${questions[currentQuestionKey]}, This is my answer on this question: ${userAnswers[userAnswerKey]} .Please rate this answer as wrong or right, and then give a constructive addition to the answer if it is correct, and if it is wrong, tell me the correct answer. Answer without **, * and other seems like symbols.`,
-            interviewConfig
-          );
-
-          const formattedResponse = JSON.parse(`${AImessage.text}`)[0];
-
-          if (formattedResponse.answerStatus === "right") {
-            setInterviewResult((event) => event + 1);
-          }
-          setGeminiActive(false);
-          setGeminiAnswers((prev) => [...prev, formattedResponse]);
-          setCurrentQuestionIndex((prev) => prev + 1);
-        }
-      };
-      AImessageGenerate();
+      aiMessageGenerate({
+        setGeminiActive,
+        userAnswers,
+        questions,
+        parsedState,
+        setInterviewResult,
+        setGeminiAnswers,
+        setCurrentQuestionIndex,
+      });
     }
   }, [userAnswers, questions]);
 

@@ -6,6 +6,7 @@ import { AIChatPage } from "./Components/AIChatPage/AIChatPage";
 import { InterviewPage } from "./Components/AIChatPage/GetInterview/oralInterview/InterviewPage";
 import { MainContext } from "./MainContext";
 import { TechInterviewPage } from "./Components/AIChatPage/GetInterview/techInterview/TechInterviewPage";
+import { NotFoundPage } from "./Components/NotFoundPage/NotFoundPage";
 
 function App() {
   return (
@@ -22,6 +23,8 @@ function App() {
           <Route path="/AIChat" element={<AIChatPage />} />
           <Route path="/AIChat/OralInterview" element={<InterviewPage />} />
           <Route path="/AiChat/TechInterview" element={<TechInterviewPage />} />
+
+          <Route path="*" element={<NotFoundPage />}></Route>
         </Routes>
       </MainContext>
     </BrowserRouter>

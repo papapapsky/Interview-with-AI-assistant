@@ -215,7 +215,8 @@ li {
 }
 
 .Title a,
-.aboutWebsite a {
+.aboutWebsite a,
+.NotFoundPage a {
   transition: 0.3s;
 
   background-color: var(--buttonColor);
@@ -239,7 +240,8 @@ li span {
 }
 
 .Title a:hover,
-.aboutWebsite a:hover {
+.aboutWebsite a:hover,
+.NotFoundPage a:hover {
   background-color: var(--buttonColorHover);
 }
 
