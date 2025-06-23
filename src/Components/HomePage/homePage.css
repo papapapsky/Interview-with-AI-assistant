@@ -214,13 +214,11 @@ li {
   }
 }
 
-.Title a,
-.aboutWebsite a,
-.NotFoundPage a {
+.CustomLinkBtn {
   transition: 0.3s;
 
   background-color: var(--buttonColor);
-  color: var(--buttonTextColor);
+  color: white;
   border: none;
   padding: 12px 25px;
   border-radius: 6px;
@@ -235,13 +233,8 @@ li {
   text-decoration: none;
 }
 
-li span {
-  color: var(--linkColor);
-}
-
-.Title a:hover,
-.aboutWebsite a:hover,
-.NotFoundPage a:hover {
+.CustomLinkBtn:hover {
+  color: white;
   background-color: var(--buttonColorHover);
 }
 

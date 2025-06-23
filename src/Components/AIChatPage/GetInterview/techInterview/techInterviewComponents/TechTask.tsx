@@ -1,15 +1,22 @@
 import "../techInterview.css";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { geminiFetch } from "../../../../../GeminiFetch";
 import { techInterviewConfig } from "../../geminiConfigs";
 import { generateTasksPrompt } from "./techPrompts";
 import type { ITechTaskProps } from "../../../../../types/types";
 import { geminiValidation } from "./geminiFetchValidation/geminiValidation";
 import { TechTaskPresentational } from "./TechTaskComponents/techTaskPresentational";
+import { InterviewResultContext } from "../../../../../InterviewResult";
 
 export const TechTask = ({ ...props }: ITechTaskProps) => {
-  const [showAnimation, setShowAnimation] = useState<string>("");
   const apiKey = import.meta.env.VITE_API_KEY;
+  const [showAnimation, setShowAnimation] = useState<string>("");
+  const ResultContext = useContext(InterviewResultContext);
+
+  if (!ResultContext) {
+    throw new Error("Result context is undefined");
+  }
+  const [state, setState] = ResultContext;
 
   const storageResume = localStorage.getItem("userResume");
   const userLanguage =
@@ -40,8 +47,8 @@ export const TechTask = ({ ...props }: ITechTaskProps) => {
       } else {
         props.setError(true);
       }
-    } catch (err) {
-      console.error("Ошибка при генерации задач:", err);
+    } catch (error) {
+      console.error("Ошибка при генерации задач:", error);
     } finally {
       props.setLoading(false);
     }
@@ -54,6 +61,11 @@ export const TechTask = ({ ...props }: ITechTaskProps) => {
   }, [props.userResume, userLanguage]);
 
   const ifCorrectAnswer = () => {
+    if (props.questionMistakes !== 3) {
+      setState({ ...state, techCorrectAnswers: state.techCorrectAnswers + 1 });
+      console.log("asdasd");
+    }
+
     props.setQuestionMistakes(0);
     props.setTasks(props.tasks.slice(1));
     props.setTasksQuantity(5 - props.tasks.length);
@@ -68,7 +80,7 @@ export const TechTask = ({ ...props }: ITechTaskProps) => {
     <TechTaskPresentational
       showAnimation={showAnimation}
       apiKey={apiKey}
-      userCodeResponse={props.userCodeResponse}
+      codeValueRef={props.userCodeResponse}
       tasks={props.tasks}
       questionMistakes={props.questionMistakes}
       globalMistakes={props.globalMistakes}

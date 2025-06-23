@@ -18,6 +18,7 @@ export const OralQuestionsResumePrompt = (
 ) => {
   return `RESPONSE ON ${language}. Please make me ${questionsQuantity} questions that are asked at an interview for a programmer position in this form. WRITE ONLY QUESTIONS Something like this: 
         {"qustion1":"question","qustion2":"question"}. 
+        NAME OF THE KEYS PROPRIETARY question1, question2 etc.
         WITHOUT TRIPLE QUOTES
         Write only a questions.`;
 };

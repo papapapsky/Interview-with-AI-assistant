@@ -3,12 +3,13 @@ import { NavLink } from "react-router-dom";
 type TypeLinkProps = {
   children: string;
   to: string;
+  className?: string;
   index?: boolean;
 };
 
-export const CustomLink: React.FC<TypeLinkProps> = ({ children, to }) => {
+export const CustomLink = ({ children, to, className }: TypeLinkProps) => {
   return (
-    <NavLink to={to} className="">
+    <NavLink to={to} className={className}>
       {children}
     </NavLink>
   );

@@ -4,14 +4,23 @@ import PrintableArea from "../PrintableArea/PrintableArea";
 import "./interviewPage.css";
 import { GeminiAnswerFormat } from "./geminiAnswerFormat";
 import { aiMessageGenerate } from "./AImessage/AIMessageGenerate";
+import { useContext } from "react";
+import { InterviewResultContext } from "../../../../InterviewResult";
 
 export const InterviewPage = (): ReactElement => {
+  const ResultContext = useContext(InterviewResultContext);
+  if (!ResultContext) {
+    throw new Error("context is undefined");
+  }
+  const [state, setState] = ResultContext;
+
   const [userAnswers, setUserAnswers] = useState<string[]>([]);
   const [geminiAnswers, setGeminiAnswers] = useState<any[]>([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
   const [questions, setQuestions] = useState<{ [key: string]: string }>({});
   const [geminiActive, setGeminiActive] = useState<boolean>(false);
   const [interviewResult, setInterviewResult] = useState<number>(0);
+  const [error, setError] = useState<boolean>(false);
 
   const languageState = localStorage.getItem("mainParameters");
   if (!languageState) {
@@ -32,6 +41,9 @@ export const InterviewPage = (): ReactElement => {
   useEffect(() => {
     if (userAnswers.length > 0) {
       aiMessageGenerate({
+        state,
+        setState,
+        setError,
         setGeminiActive,
         userAnswers,
         questions,
@@ -50,10 +62,11 @@ export const InterviewPage = (): ReactElement => {
   return (
     <div className="Dialog">
       <h1>HR interview</h1>
+
       {currentQuestionIndex < Object.keys(questions).length && (
         <div className="Phrase">
           <div className="GeminiAnswer HRbox">
-            <img src={HR} alt="" className="HRimg" style={{ marginTop: 10 }} />{" "}
+            <img src={HR} alt="" className="HRimg" style={{ marginTop: 10 }} />
             <h4>{questions[`question${currentQuestionIndex + 1}`]}</h4>
           </div>
         </div>
@@ -72,6 +85,17 @@ export const InterviewPage = (): ReactElement => {
           )}
         </div>
       ))}
+      {geminiActive && (
+        <div className="loading-indicator">
+          <span>Waiting for a response</span>
+          <div className="dot-loader">
+            <span className="dot dot1">.</span>
+            <span className="dot dot2">.</span>
+            <span className="dot dot3">.</span>
+          </div>
+        </div>
+      )}
+      {error && <h3 className="mistake">Request error. Please try again</h3>}
       {currentQuestionIndex < Object.keys(questions).length && (
         <PrintableArea
           geminiAnswers={geminiAnswers[geminiAnswers.length - 1]}

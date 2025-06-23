@@ -47,7 +47,9 @@ export const HomePage = () => {
           <div className="Title">
             <h1>Interviewing the new generation.</h1>
             <h4>Prepare for real interviews with artificial intelligence</h4>
-            <CustomLink to="/AIChat">Start interview</CustomLink>
+            <CustomLink to="/AIChat" className="CustomLinkBtn">
+              Start interview
+            </CustomLink>
           </div>
           <div className="HRimage">
             <img src={HRimage} alt="" className="HRimage" />
@@ -67,7 +69,9 @@ export const HomePage = () => {
             <ServiceOptions />
             <h1>How it works?</h1>
             <HowItWorks />
-            <CustomLink to="/AIChat">Start interview</CustomLink>
+            <CustomLink to="/AIChat" className="CustomLinkBtn">
+              Start interview
+            </CustomLink>
           </div>
         </div>
       </main>

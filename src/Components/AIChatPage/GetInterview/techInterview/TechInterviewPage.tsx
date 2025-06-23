@@ -1,7 +1,6 @@
 import { useState } from "react";
 import "./techInterview.css";
 import { TechTaskStates } from "./techInterviewComponents/TechTaskStates";
-// import { InterviewEnd } from "./techInterviewComponents/techInterviewEnd";
 export const TechInterviewPage = () => {
   const [tasksQuantity, setTasksQuantity] = useState<number>(1);
 

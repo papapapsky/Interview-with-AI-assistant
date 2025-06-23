@@ -1,10 +1,35 @@
+import { useContext, useEffect, useRef } from "react";
 import type { TypeTechTask } from "../../../../../../types/types";
 import { InterviewEnd } from "../techInterviewEnd";
 import { nextTask } from "./nextTask";
+import { InterviewResultContext } from "../../../../../../InterviewResult";
+
+import hljs from "highlight.js";
+import "highlight.js/styles/tokyo-night-dark.css";
+
+import CodeMirror from "@uiw/react-codemirror";
+import { javascript } from "@codemirror/lang-javascript";
 
 export const TechTaskPresentational = ({ ...props }: TypeTechTask) => {
+  const ResultContext = useContext(InterviewResultContext);
+  if (!ResultContext) {
+    throw new Error("Result context is undefined");
+  }
+  const [state] = ResultContext;
+
+  const codeValueRef = useRef(
+    "//This redactor recommended for javascript, if you write on another language recommended https://codepen.io/"
+  );
+
+  useEffect(() => {
+    document.querySelectorAll("pre code").forEach((block) => {
+      block.removeAttribute("data-highlighted");
+    });
+    hljs.highlightAll();
+  }, [props.tasks]);
+
   return (
-    <div className={props.showAnimation}>
+    <div className={`geminiTask ${props.showAnimation}`}>
       {props.error && (
         <>
           <h3>Request error, please try again</h3>
@@ -32,26 +57,36 @@ export const TechTaskPresentational = ({ ...props }: TypeTechTask) => {
               )}
             </div>
           </div>
-          <div className="taskExplanation">
+
+          <div className="codeExampleBox">
             <h3>Code example</h3>
             <details>
               <summary>Show code example</summary>
               <div className="codeExample">
-                {props.tasks[0].exampleCode.map(
-                  (val: string, index: number) => (
-                    <h4 key={index}>{val}</h4>
-                  )
-                )}
+                <pre>
+                  <code className="language-javascript">
+                    {props.tasks[0].exampleCode.join("\n")}
+                  </code>
+                </pre>
               </div>
             </details>
           </div>
+
           <br />
+
           <div className="userTextArea">
             <h3>Write your response here:</h3>
-            <textarea
-              ref={props.userCodeResponse}
-              defaultValue="//for code redactor recommended https://codepen.io/"
-            ></textarea>
+            <CodeMirror
+              className="codeArea"
+              value={codeValueRef.current}
+              height="500px"
+              theme="dark"
+              extensions={[javascript()]}
+              onChange={(value) => {
+                codeValueRef.current = value;
+              }}
+            />
+
             {props.questionMistakes > 0 && (
               <div className="mistake">
                 Wrong answer! {props.questionMistakes} / 3
@@ -61,7 +96,7 @@ export const TechTaskPresentational = ({ ...props }: TypeTechTask) => {
               onClick={() =>
                 nextTask({
                   apiKey: props.apiKey,
-                  userCodeResponse: props.userCodeResponse,
+                  codeValueRef: codeValueRef,
                   tasks: props.tasks,
                   questionMistakes: props.questionMistakes,
                   globalMistakes: props.globalMistakes,
@@ -76,7 +111,12 @@ export const TechTaskPresentational = ({ ...props }: TypeTechTask) => {
           </div>
         </>
       )}
-      <InterviewEnd questionsQuantity={props.questionsQuantity} />
+
+      <InterviewEnd
+        techQuestionsQuantity={props.questionsQuantity}
+        oralCorrectAnswers={state.oralCorrectAnswers}
+        techCorrectAnswers={state.techCorrectAnswers}
+      />
     </div>
   );
 };

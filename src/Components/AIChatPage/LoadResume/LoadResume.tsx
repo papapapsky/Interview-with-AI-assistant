@@ -34,24 +34,24 @@ export const LoadResume = ({
     }
   }, []);
 
+  const fetchQuestions = async () => {
+    setFetchLoading(true);
+    setFetchError(false);
+
+    try {
+      const response = await geminiFetch(apiKey, userResume);
+      const parsed = JSON.parse(`${response.text}`);
+      setQuestions(parsed);
+      localStorage.setItem("oral responses", `${response.text}`);
+    } catch {
+      setFetchError(true);
+    } finally {
+      setFetchLoading(false);
+    }
+  };
+
   useEffect(() => {
     if (!userResume) return;
-    const fetchQuestions = async () => {
-      setFetchLoading(true);
-      setFetchError(false);
-
-      try {
-        const response = await geminiFetch(apiKey, userResume);
-        const parsed = JSON.parse(`{response.text}`);
-        setQuestions(parsed);
-        localStorage.setItem("oral responses", `${response.text}`);
-      } catch {
-        setFetchError(true);
-      } finally {
-        setFetchLoading(false);
-      }
-    };
-
     fetchQuestions();
   }, [userResume]);
 
@@ -101,7 +101,7 @@ export const LoadResume = ({
   const renderError = () => (
     <div>
       <h3>Request error, please try again</h3>
-      <button onClick={() => setUserResume(userResume)} className="ifErrorBtn">
+      <button onClick={() => fetchQuestions()} className="ifErrorBtn">
         Try again
       </button>
     </div>

@@ -4,7 +4,7 @@ import { geminiFetch } from "../../../../../../GeminiFetch";
 
 export const nextTask = ({
   apiKey,
-  userCodeResponse,
+  codeValueRef,
   tasks,
   questionMistakes,
   globalMistakes,
@@ -13,19 +13,17 @@ export const nextTask = ({
   setQuestionMistakes,
 }: TypeNextTaskProps) => {
   const checkTheAnswer = async () => {
-    if (!userCodeResponse.current) return;
-
+    if (!codeValueRef.current) return;
     try {
       const CheckPrompt = checkAnswerPrompt(
         tasks[0].taskExplanation.join(" "),
-        userCodeResponse.current.value
+        codeValueRef.current
       );
       const geminiChecks = await geminiFetch(apiKey, CheckPrompt);
       const result = JSON.parse(`${geminiChecks.text}`);
 
       if (result.checkCorrectlyAnswer) {
-        userCodeResponse.current.value =
-          "//for code redactor recommended https://codepen.io/";
+        codeValueRef.current = "";
         ifCorrectAnswer();
       } else {
         setQuestionMistakes(questionMistakes + 1);
@@ -36,7 +34,7 @@ export const nextTask = ({
         }
       }
     } catch (error) {
-      console.error("Ошибка при проверке ответа:", error);
+      console.error("error:", error);
     }
   };
 

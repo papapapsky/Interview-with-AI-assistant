@@ -16,7 +16,7 @@ body {
   font-weight: 700;
   font-size: 1.5rem;
   color: tomato;
-  margin: 10px;
+  margin-bottom: 10px;
 }
 
 @keyframes spin {
@@ -63,13 +63,31 @@ body {
   color: var(--linkColor);
 }
 
+.interviewEnd {
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  display: flex;
+}
+
+.interviewEnd a {
+  margin-top: 20px;
+}
+
+.interviewEnd h2 {
+  margin: 10px;
+}
+
+.interviewEnd span {
+  color: var(--linkColor);
+}
+
 .geminiTask {
   margin: 30px;
   max-width: 1200px;
 }
 
 .geminiTask h4 {
-  white-space: pre-wrap;
   color: rgba(255, 255, 255, 0.809);
   margin: 0;
 
@@ -80,13 +98,16 @@ body {
   color: var(--linkColor);
 }
 
-.geminiTask span {
+.explanation span {
   color: var(--linkColor);
 }
 
+code {
+  border-radius: 5px;
+}
+
 .codeExample {
-  padding: 5px;
-  margin: 5px;
+  margin: 20px;
   border-radius: 5px;
   background-color: rgba(2, 2, 2, 0.53);
 }
@@ -125,8 +146,9 @@ br {
   flex-direction: column;
 }
 
-.userTextArea textarea {
-  height: 750px;
+.codeArea {
+  margin-bottom: 20px;
   border-radius: 5px;
-  background-color: rgba(2, 2, 2, 0.53);
+  border: 2px solid var(--linkColor);
+  width: 100%;
 }

@@ -5,7 +5,9 @@ export const NotFoundPage = () => {
   return (
     <div className="NotFoundPage">
       <h1>Page not found</h1>
-      <CustomLink to="/">Go to Homepage</CustomLink>
+      <CustomLink to="/" className="CustomLinkBtn">
+        Go to Homepage
+      </CustomLink>
     </div>
   );
 };

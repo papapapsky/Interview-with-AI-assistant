@@ -43,7 +43,7 @@ export type TypeAIChatPage = {
 
 export type TypeNextTaskProps = {
   apiKey: string;
-  userCodeResponse: RefObject<HTMLTextAreaElement>;
+  codeValueRef: any;
   tasks: TypeTask[];
   questionMistakes: number;
   globalMistakes: number;
