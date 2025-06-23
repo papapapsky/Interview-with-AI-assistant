@@ -1,109 +1,129 @@
 import "./loadResume.css";
-
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { geminiFetch } from "../../../GeminiFetch";
 import { CollectResume } from "./CollectResume/CollectResume";
 import { CustomLink } from "../../CustomLink";
 import { MainParameters } from "./MainParameters/MainParameters";
 import { Link } from "react-router-dom";
-import type { TypeAIChatPage } from "../../../types/types";
 import { setResume } from "./Components/setResume";
+import type { TypeAIChatPage } from "../../../types/types";
 
-export const LoadResume = ({ ...props }: TypeAIChatPage) => {
+export const LoadResume = ({
+  setUserResume,
+  setIsQuestionLoaded,
+  setFetchLoading,
+  setFetchError,
+  setQuestions,
+  questions,
+  fetchError,
+  fetchLoading,
+  userResume,
+  isQuestionLoaded,
+  setMainParameters,
+  mainParameters,
+}: TypeAIChatPage) => {
   const apiKey = import.meta.env.VITE_API_KEY;
+  const [showAnimation, setShowAnimation] = useState("");
+
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
-    const contentBox = document.getElementById("loadResume");
-    contentBox?.classList.add("showParametersAnimation");
+    setShowAnimation("showParametersAnimation");
 
     if (localStorage.getItem("oral responses")) {
-      props.setIsQuestionLoaded(true);
+      setIsQuestionLoaded(true);
     }
   }, []);
 
-  const handleResumeText = (text: string) => {
-    props.setUserResume(text);
-  };
-
-  const showGPTresponse = async () => {
-    if (!props.userResume) return;
-    props.setFetchLoading(true);
-    props.setFetchError(false);
-
-    try {
-      const response = await geminiFetch(apiKey, props.userResume);
-      const parseQuestions = `${response.text}`;
-      props.setQuestions(JSON.parse(parseQuestions));
-      localStorage.setItem("oral responses", parseQuestions);
-    } catch (error) {
-      props.setFetchError(true);
-    } finally {
-      props.setFetchLoading(false);
-    }
-  };
-
   useEffect(() => {
-    showGPTresponse();
-  }, [props.userResume]);
+    if (!userResume) return;
+    const fetchQuestions = async () => {
+      setFetchLoading(true);
+      setFetchError(false);
+
+      try {
+        const response = await geminiFetch(apiKey, userResume);
+        const parsed = JSON.parse(`{response.text}`);
+        setQuestions(parsed);
+        localStorage.setItem("oral responses", `${response.text}`);
+      } catch {
+        setFetchError(true);
+      } finally {
+        setFetchLoading(false);
+      }
+    };
+
+    fetchQuestions();
+  }, [userResume]);
+
+  const handleFileLoad = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setResume(
+      event,
+      `${mainParameters.language}`,
+      +mainParameters.questionsQuantity,
+      setUserResume
+    );
+  };
+
+  const renderInitial = () => (
+    <div>
+      <h3>
+        {isQuestionLoaded && (
+          <Link to="/AIChat/OralInterview" className="continueInterview">
+            Continue interview
+          </Link>
+        )}
+      </h3>
+      <h1>Let`s take interview!</h1>
+      <MainParameters setMainParameters={setMainParameters} />
+      <h2 style={{ margin: 0, marginTop: 50 }}>
+        Before, load your resume here (.txt, .pdf)
+      </h2>
+      <form className="loadFileForm">
+        <input
+          type="file"
+          id="resumeLoad"
+          accept=".txt"
+          onChange={handleFileLoad}
+        />
+        <label htmlFor="resumeLoad">Load file</label>
+      </form>
+      <CollectResume setResumeText={setUserResume} />
+    </div>
+  );
+
+  const renderLoading = () => (
+    <div>
+      <div className="loader"></div>
+      <h2>Please wait, AI is generating questions...</h2>
+    </div>
+  );
+
+  const renderError = () => (
+    <div>
+      <h3>Request error, please try again</h3>
+      <button onClick={() => setUserResume(userResume)} className="ifErrorBtn">
+        Try again
+      </button>
+    </div>
+  );
+
+  const renderReady = () => (
+    <div className="StartInterviesDiv">
+      <h1 style={{ color: "#8259ff" }}>Everything is ready!</h1>
+      <h3>Start interview?</h3>
+      <CustomLink to="/AIChat/OralInterview">Start</CustomLink>
+    </div>
+  );
 
   return (
-    <div id="loadResume">
-      {!props.fetchLoading &&
-        !props.fetchError &&
-        Object.keys(props.questions).length === 0 && (
-          <div>
-            <h3>
-              {props.isQuestionLoaded && (
-                <Link to="/AIChat/OralInterview" className="continueInterview">
-                  Continue interview
-                </Link>
-              )}
-            </h3>
-            <h1>Let`s take interview!</h1>
-            <MainParameters setMainParameters={props.setMainParameters} />
-            <h2 style={{ margin: 0, marginTop: 50 }}>
-              Before, load your resume here(.txt, .pdf)
-            </h2>
-            <form className="loadFileForm">
-              <input
-                type="file"
-                id="resumeLoad"
-                accept=".txt"
-                onChange={(event) =>
-                  setResume(
-                    event,
-                    `${props.mainParameters.language}`,
-                    +props.mainParameters.questionsQuantity,
-                    props.setUserResume
-                  )
-                }
-              />
-              <label htmlFor="resumeLoad">Load file</label>
-            </form>
-            <CollectResume setResumeText={handleResumeText} />
-          </div>
-        )}
-      {props.fetchLoading && (
-        <div>
-          <div className="loader"></div>
-          <h2>Please wait, AI generating questions...</h2>
-        </div>
-      )}
-      {props.fetchError && (
-        <div>
-          <h3>Request error, please try again</h3>
-          <button onClick={() => showGPTresponse()} className="ifErrorBtn">
-            Try again
-          </button>
-        </div>
-      )}
-      {Object.keys(props.questions).length > 0 && (
-        <div className="StartInterviesDiv">
-          <h1 style={{ color: "#8259ff" }}>Everything is ready!</h1>
-          <h3>Start interview?</h3>
-          <CustomLink to="/AIChat/OralInterview">Start</CustomLink>
-        </div>
-      )}
+    <div className={showAnimation}>
+      {fetchLoading && renderLoading()}
+      {fetchError && renderError()}
+      {!fetchLoading &&
+        !fetchError &&
+        Object.keys(questions).length === 0 &&
+        renderInitial()}
+      {Object.keys(questions).length > 0 && renderReady()}
     </div>
   );
 };

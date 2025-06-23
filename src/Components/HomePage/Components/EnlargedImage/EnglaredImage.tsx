@@ -18,7 +18,7 @@ export const EnglaredImage = ({ open, setOpen, imgSrc }: IProps) => {
   return createPortal(
     <dialog open={open} onClick={closeModal}>
       <div className="modalPictureBox">
-        <img src={imgSrc} alt="" className="modalPicture" />
+        {imgSrc ? <img src={imgSrc} alt="" className="modalPicture" /> : null}
       </div>
     </dialog>,
     modalWindow

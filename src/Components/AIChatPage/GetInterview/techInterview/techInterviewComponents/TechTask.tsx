@@ -1,5 +1,5 @@
 import "../techInterview.css";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { geminiFetch } from "../../../../../GeminiFetch";
 import { techInterviewConfig } from "../../geminiConfigs";
 import { generateTasksPrompt } from "./techPrompts";
@@ -8,6 +8,7 @@ import { geminiValidation } from "./geminiFetchValidation/geminiValidation";
 import { TechTaskPresentational } from "./TechTaskComponents/techTaskPresentational";
 
 export const TechTask = ({ ...props }: ITechTaskProps) => {
+  const [showAnimation, setShowAnimation] = useState<string>("");
   const apiKey = import.meta.env.VITE_API_KEY;
 
   const storageResume = localStorage.getItem("userResume");
@@ -60,14 +61,12 @@ export const TechTask = ({ ...props }: ITechTaskProps) => {
   };
 
   useEffect(() => {
-    if (!props.loading) {
-      const componentBox = document.querySelector(".geminiTask");
-      componentBox?.classList.add("showAnimation");
-    }
+    props.loading ? setShowAnimation("") : setShowAnimation("showAnimation");
   }, [props.loading]);
 
   return (
     <TechTaskPresentational
+      showAnimation={showAnimation}
       apiKey={apiKey}
       userCodeResponse={props.userCodeResponse}
       tasks={props.tasks}

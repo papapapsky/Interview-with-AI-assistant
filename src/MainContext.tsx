@@ -1,24 +1,24 @@
 import { useState, type PropsWithChildren } from "react";
 import React from "react";
 
-interface LanguageState {
+type TypeMainParameters = {
   language: string;
   techInterview: boolean;
   questionsQuantity: number;
   loadedUserResume: string;
-}
+};
 
-type LanguageContextType = [
-  LanguageState,
-  React.Dispatch<React.SetStateAction<LanguageState>>
+type TypeParameterstContext = [
+  TypeMainParameters,
+  React.Dispatch<React.SetStateAction<TypeMainParameters>>
 ];
 
-export const mainContext = React.createContext<LanguageContextType | undefined>(
-  undefined
-);
+export const mainContext = React.createContext<
+  TypeParameterstContext | undefined
+>(undefined);
 
 export const MainContext = ({ children }: PropsWithChildren) => {
-  const state = useState<LanguageState>({
+  const state = useState<TypeMainParameters>({
     language: "English",
     techInterview: false,
     questionsQuantity: 10,

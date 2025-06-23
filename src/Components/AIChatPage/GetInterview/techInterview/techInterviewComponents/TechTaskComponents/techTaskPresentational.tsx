@@ -4,7 +4,7 @@ import { nextTask } from "./nextTask";
 
 export const TechTaskPresentational = ({ ...props }: TypeTechTask) => {
   return (
-    <div className="geminiTask">
+    <div className={props.showAnimation}>
       {props.error && (
         <>
           <h3>Request error, please try again</h3>

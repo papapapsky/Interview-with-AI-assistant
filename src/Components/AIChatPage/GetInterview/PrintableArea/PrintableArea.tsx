@@ -10,7 +10,7 @@ interface IPrintableAreaProps {
 }
 
 export default function PrintableArea(props: IPrintableAreaProps) {
-  const [maximize, setMaximize] = useState<boolean>(true);
+  const [maximize, setMaximize] = useState<boolean>(false);
   const InputRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
@@ -41,29 +41,19 @@ export default function PrintableArea(props: IPrintableAreaProps) {
       }
     }
   };
-
   const maximizeFiled = () => {
-    const printableArea = document.querySelector(".printableArea");
-    const textArea = InputRef.current;
-
-    if (!!maximize) {
-      printableArea?.classList.add("printableAreaFullscreen");
-      textArea?.classList.add("textAreaFullscreen");
-      setMaximize(false);
-    } else {
-      printableArea?.classList.remove("printableAreaFullscreen");
-      textArea?.classList.remove("textAreaFullscreen");
-      setMaximize(true);
-    }
+    setMaximize((prev) => !prev);
   };
 
   return (
     <div className="InterviewMain">
-      <div className="printableArea">
+      <div
+        className={`printableArea ${maximize ? "printableAreaFullscreen" : ""}`}
+      >
         <textarea
-          placeholder="Your response"
-          className="printableTextArea"
           ref={InputRef}
+          placeholder="Your response"
+          className={`printableTextArea ${maximize ? "textAreaFullscren" : ""}`}
         />
         <div className="buttonsDiv">
           <button onClick={SendAnswer} className="printableAreaButton">

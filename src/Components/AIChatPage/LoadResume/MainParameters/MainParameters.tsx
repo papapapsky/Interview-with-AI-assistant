@@ -49,6 +49,7 @@ export const MainParameters = ({ setMainParameters }: TypeProps) => {
 
   const checkTechInterview = () => {
     const checked = techInterviewCheck.current?.checked ?? false;
+
     if (checked) {
       setState({ ...state, techInterview: true });
     } else {

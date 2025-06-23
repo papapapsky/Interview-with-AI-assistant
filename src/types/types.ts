@@ -53,6 +53,7 @@ export type TypeNextTaskProps = {
 };
 
 export type TypeTechTask = TypeNextTaskProps & {
+  showAnimation: string;
   questionsQuantity: number;
   loading: boolean;
   error: boolean;
