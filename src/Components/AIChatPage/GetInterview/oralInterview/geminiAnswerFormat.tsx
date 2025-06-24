@@ -36,7 +36,7 @@ export const GeminiAnswerFormat = ({
             Your response <span>{geminiResponse.answerStatus}</span>
           </b>
         </h3>
-        {geminiResponse.explation &&
+        {geminiResponse.explanation &&
           geminiResponse.explanation.map((value: string, index: number) => (
             <div key={index} className="explanation">
               <h4>{value}</h4>
