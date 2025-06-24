@@ -88,6 +88,16 @@ h4 {
   max-width: 80%;
 }
 
+.voiceBtn {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 50px;
+  min-height: 50px;
+  margin-right: 20px;
+}
+
 .UserAnswer {
   align-self: flex-end;
   background-color: rgba(66, 66, 66, 0.534);
