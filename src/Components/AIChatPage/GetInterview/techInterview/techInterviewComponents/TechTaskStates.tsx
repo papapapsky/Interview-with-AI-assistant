@@ -11,6 +11,7 @@ export const TechTaskStates = ({
   questionsQuantity,
   setTasksQuantity,
 }: tasksProps) => {
+  const [geminiThinking, setGeminiThinking] = useState<boolean>(false);
   const [userResume, setUserResume] = useState<string>("");
   const [tasks, setTasks] = useState<TypeTask[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -21,6 +22,8 @@ export const TechTaskStates = ({
 
   return (
     <TechTask
+      setGeminiThinking={setGeminiThinking}
+      geminiThinking={geminiThinking}
       questionsQuantity={questionsQuantity}
       setTasksQuantity={setTasksQuantity}
       userResume={userResume}

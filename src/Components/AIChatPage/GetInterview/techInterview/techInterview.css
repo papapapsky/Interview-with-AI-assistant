@@ -19,6 +19,13 @@ body {
   margin-bottom: 10px;
 }
 
+.tech {
+  margin-top: 0;
+  font-weight: 700;
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
 @keyframes spin {
   0% {
     transform: rotate(0deg);
@@ -106,7 +113,20 @@ code {
   border-radius: 5px;
 }
 
+@keyframes codeExampleAnimation {
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.codeExampleAnimation {
+  animation: codeExampleAnimation 0.3s ease forwards;
+}
+
 .codeExample {
+  opacity: 0;
+  transform: translateY(-5%);
   margin: 20px;
   border-radius: 5px;
   background-color: rgba(2, 2, 2, 0.53);

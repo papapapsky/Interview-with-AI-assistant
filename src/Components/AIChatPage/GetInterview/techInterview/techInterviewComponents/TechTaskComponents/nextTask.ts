@@ -3,6 +3,7 @@ import { checkAnswerPrompt } from "../techPrompts";
 import { geminiFetch } from "../../../../../../GeminiFetch";
 
 export const nextTask = ({
+  setGeminiThinking,
   apiKey,
   codeValueRef,
   tasks,
@@ -15,6 +16,7 @@ export const nextTask = ({
   const checkTheAnswer = async () => {
     if (!codeValueRef.current) return;
     try {
+      setGeminiThinking(true);
       const CheckPrompt = checkAnswerPrompt(
         tasks[0].taskExplanation.join(" "),
         codeValueRef.current
@@ -35,6 +37,8 @@ export const nextTask = ({
       }
     } catch (error) {
       console.error("error:", error);
+    } finally {
+      setGeminiThinking(false);
     }
   };
 

@@ -78,6 +78,8 @@ export const TechTask = ({ ...props }: ITechTaskProps) => {
 
   return (
     <TechTaskPresentational
+      geminiThinking={props.geminiThinking}
+      setGeminiThinking={props.setGeminiThinking}
       showAnimation={showAnimation}
       apiKey={apiKey}
       codeValueRef={props.userCodeResponse}

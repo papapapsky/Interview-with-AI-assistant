@@ -57,7 +57,7 @@ export const GeminiAnswerFormat = ({
         <div className="resultBox">
           <h1>
             Oral interview completed. <br />
-            Your result:
+            Your result:{" "}
             <span>
               {interviewResult} / {Object.keys(questions).length}.
             </span>

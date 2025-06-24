@@ -26,6 +26,12 @@ export default function PrintableArea(props: IPrintableAreaProps) {
       UserHTMLAnswers[UserHTMLAnswers.length - 1].scrollIntoView({
         behavior: "smooth",
       });
+      setTimeout(() => {
+        window.scrollBy({
+          top: 1000,
+          behavior: "smooth",
+        });
+      }, 300);
     }
   }, [props.userAnswers]);
 
@@ -47,6 +53,8 @@ export default function PrintableArea(props: IPrintableAreaProps) {
 
   return (
     <div className="InterviewMain">
+      <div className="printableBackdrop" />
+
       <div
         className={`printableArea ${maximize ? "printableAreaFullscreen" : ""}`}
       >

@@ -7,6 +7,8 @@ export interface TypeTask {
 }
 
 export interface ITechTaskProps {
+  geminiThinking: boolean;
+  setGeminiThinking: (geminiThinking: boolean) => void;
   questionsQuantity: number;
   setTasksQuantity: (tasksQuantity: number) => void;
   userResume: string;
@@ -42,6 +44,7 @@ export type TypeAIChatPage = {
 };
 
 export type TypeNextTaskProps = {
+  setGeminiThinking: (geminiThinking: boolean) => void;
   apiKey: string;
   codeValueRef: any;
   tasks: TypeTask[];
@@ -53,6 +56,7 @@ export type TypeNextTaskProps = {
 };
 
 export type TypeTechTask = TypeNextTaskProps & {
+  geminiThinking: boolean;
   showAnimation: string;
   questionsQuantity: number;
   loading: boolean;
