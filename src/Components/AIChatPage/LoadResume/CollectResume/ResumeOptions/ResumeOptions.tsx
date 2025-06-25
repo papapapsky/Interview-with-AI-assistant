@@ -1,10 +1,10 @@
+import type { TypeFormInput } from "../CollectResume";
 import type {
   FieldErrors,
   UseFormRegister,
   SubmitHandler,
   UseFormHandleSubmit,
 } from "react-hook-form";
-import type { TypeFormInput } from "../CollectResume";
 
 type TypeProps = {
   register: UseFormRegister<TypeFormInput>;
@@ -25,6 +25,15 @@ export const ResumeOptions = ({
       <form className="resumeOptions" onSubmit={handleSubmit(onSubmit)}>
         <div className="Options">
           <div>
+            <div>
+              <label htmlFor="name">Name:</label>
+              <input
+                id="name"
+                type="text"
+                placeholder="Write your name"
+                {...register("name", { required: true })}
+              />
+            </div>
             <div>
               <label htmlFor="age">Age:</label>
               <input

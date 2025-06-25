@@ -8,6 +8,7 @@ import { MainContext } from "./MainContext";
 import { TechInterviewPage } from "./Components/AIChatPage/GetInterview/techInterview/TechInterviewPage";
 import { NotFoundPage } from "./Components/NotFoundPage/NotFoundPage";
 import { InterviewResult } from "./InterviewResult";
+
 function App() {
   return (
     <BrowserRouter>

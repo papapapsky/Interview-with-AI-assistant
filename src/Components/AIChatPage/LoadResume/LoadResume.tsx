@@ -75,9 +75,6 @@ export const LoadResume = ({
       </h3>
       <h1>Let`s take interview!</h1>
       <MainParameters setMainParameters={setMainParameters} />
-      <h2 style={{ margin: 0, marginTop: 50 }}>
-        Before, load your resume here (.txt, .pdf)
-      </h2>
       <form className="loadFileForm">
         <input
           type="file"
@@ -85,7 +82,7 @@ export const LoadResume = ({
           accept=".txt"
           onChange={handleFileLoad}
         />
-        <label htmlFor="resumeLoad">Load file</label>
+        <label htmlFor="resumeLoad">Load resume</label>
       </form>
       <CollectResume setResumeText={setUserResume} />
     </div>

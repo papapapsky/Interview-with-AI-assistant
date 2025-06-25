@@ -10,8 +10,8 @@ export const AIChatPage = () => {
   const [mainParameters, setMainParameters] = useState<{
     [key: string]: string | number;
   }>({
-    language: "English",
-    questionsQuantity: 10,
+    language: "",
+    questionsQuantity: 5,
   });
   const [fetchError, setFetchError] = useState(false);
 

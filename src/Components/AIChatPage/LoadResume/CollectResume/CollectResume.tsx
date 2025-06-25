@@ -3,12 +3,14 @@ import "./collectResume.css";
 import { useContext } from "react";
 import { mainContext } from "../../../../MainContext";
 import { ResumeOptions } from "./ResumeOptions/ResumeOptions";
+import { generateQuestionsPrompt, userResumePrompt } from "./resumePrompt";
 
 interface CollectResumeProps {
   setResumeText: (text: string) => void;
 }
 
 export type TypeFormInput = {
+  name: string;
   experience: string;
   techStack: string;
   age: string;
@@ -32,12 +34,20 @@ export const CollectResume = ({ setResumeText }: CollectResumeProps) => {
   const [state] = context;
 
   const onSubmit = (data: TypeFormInput) => {
-    const userResume = `Hi, im a ${data.direction} developer, im a ${data.age} years old. I have ${data.education} education and ${data.experience} years experience. My stack: ${data.techStack}. This is my pet-projects: ${data.petProjects}.`;
-    const sentText = `PLEASE, ANSWER ON ${state.language}. ${userResume} Please make me ${state.questionsQuantity} questions that are asked at an interview for a programmer position in this form. WRITE ONLY QUESTIONS Something like this: 
-    {"qustion1":"question","qustion2":"question"}. 
-
-    WITHOUT TRIPLE QUOTES
-    Write only a questions.`;
+    const userResume = userResumePrompt({
+      name: data.name,
+      direction: data.direction,
+      age: data.age,
+      education: data.education,
+      experience: data.experience,
+      techStack: data.techStack,
+      petProjects: data.petProjects,
+    });
+    const sentText = generateQuestionsPrompt({
+      language: state.language,
+      userResume: userResume,
+      questionsQuantity: state.questionsQuantity,
+    });
 
     localStorage.setItem("userResume", userResume);
     setResumeText(sentText);

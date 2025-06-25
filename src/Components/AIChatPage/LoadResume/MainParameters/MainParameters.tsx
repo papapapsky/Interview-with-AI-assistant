@@ -24,6 +24,14 @@ export const MainParameters = ({ setMainParameters }: TypeProps) => {
   const techInterviewCheck = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
+    const savedParameters = localStorage.getItem("mainParameters");
+
+    if (JSON.parse(`${savedParameters}`).language) {
+      setLanguage(JSON.parse(`${savedParameters}`).language);
+    }
+  }, []);
+
+  useEffect(() => {
     const Parameters: TypeParameters = {
       language,
       questionsQuantity,

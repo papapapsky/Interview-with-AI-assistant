@@ -67,7 +67,9 @@ export const InterviewPage = (): ReactElement => {
         <div className="Phrase">
           <div className="GeminiAnswer HRbox">
             <img src={HR} alt="" className="HRimg" style={{ marginTop: 10 }} />
-            <h4>{questions[`question${currentQuestionIndex + 1}`]}</h4>
+            <h4 className="ShadowText">
+              {questions[`question${currentQuestionIndex + 1}`]}
+            </h4>
           </div>
         </div>
       )}

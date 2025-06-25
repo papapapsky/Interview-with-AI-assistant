@@ -9,15 +9,19 @@ export const aiMessageGeneratePrompts = ({
   question,
   userAnswer,
 }: TypeGeneratePrompt) => {
-  return `ANSWER ON ${language}. This is a question: ${question}, This is my answer on this question: ${userAnswer} .Please rate this answer as wrong or right, and then give a constructive addition to the answer if it is correct, and if it is wrong, tell me the correct answer. Answer without **, * and other seems like symbols.`;
+  return `ANSWER ON ${language}. Your are my interviewer. This is a question: ${question}, This is my answer on this question: ${userAnswer} .Please rate this answer as wrong or right, and then give a constructive addition to the answer if it is correct, and if it is wrong, tell me the correct answer.
+  treat them as if you were in a real conversation at a real interview as an interviewer.
+  Answer without **, * and other seems like symbols.`;
 };
 
 export const OralQuestionsResumePrompt = (
   language: string,
   questionsQuantity: number
 ) => {
-  return `RESPONSE ON ${language}. Please make me ${questionsQuantity} questions that are asked at an interview for a programmer position in this form. WRITE ONLY QUESTIONS Something like this: 
+  return `RESPONSE ON ${language}. You are my interviewer. Please make me ${questionsQuantity} questions that are asked at an interview for a programmer position in this form. WRITE ONLY QUESTIONS Something like this: 
         {"qustion1":"question","qustion2":"question"}. 
+        
+        Ask questions and treat them as if you were in a real conversation at a real interview as an interviewer.
         NAME OF THE KEYS PROPRIETARY question1, question2 etc.
         WITHOUT TRIPLE QUOTES
         Write only a questions.`;

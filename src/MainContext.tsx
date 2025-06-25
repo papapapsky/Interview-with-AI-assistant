@@ -19,8 +19,8 @@ export const mainContext = React.createContext<
 
 export const MainContext = ({ children }: PropsWithChildren) => {
   const state = useState<TypeMainParameters>({
-    language: "English",
-    techInterview: false,
+    language: "",
+    techInterview: true,
     questionsQuantity: 10,
     loadedUserResume: "",
   });
