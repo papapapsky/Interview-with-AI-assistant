@@ -9,7 +9,11 @@ import { TechTaskPresentational } from "./TechTaskComponents/techTaskPresentatio
 import { InterviewResultContext } from "../../../../../InterviewResult";
 
 export const TechTask = ({ ...props }: ITechTaskProps) => {
-  const apiKey = import.meta.env.VITE_API_KEY;
+  const apiKey = localStorage.getItem("apiKey");
+  if (!apiKey) {
+    return <div>Please enter your API key first.</div>;
+  }
+
   const [showAnimation, setShowAnimation] = useState<string>("");
   const ResultContext = useContext(InterviewResultContext);
 
@@ -34,6 +38,12 @@ export const TechTask = ({ ...props }: ITechTaskProps) => {
       props.setError(false);
       props.setLoading(true);
       const TasksPrompt = generateTasksPrompt(userLanguage, props.userResume);
+      if (!apiKey) {
+        props.setError(true);
+        props.setLoading(false);
+        return;
+      }
+
       const techTasks = await geminiFetch(
         apiKey,
         TasksPrompt,
@@ -48,7 +58,7 @@ export const TechTask = ({ ...props }: ITechTaskProps) => {
         props.setError(true);
       }
     } catch (error) {
-      console.error("Ошибка при генерации задач:", error);
+      props.setError(true);
     } finally {
       props.setLoading(false);
     }
@@ -63,7 +73,6 @@ export const TechTask = ({ ...props }: ITechTaskProps) => {
   const ifCorrectAnswer = () => {
     if (props.questionMistakes !== 3) {
       setState({ ...state, techCorrectAnswers: state.techCorrectAnswers + 1 });
-      console.log("asdasd");
     }
 
     props.setQuestionMistakes(0);

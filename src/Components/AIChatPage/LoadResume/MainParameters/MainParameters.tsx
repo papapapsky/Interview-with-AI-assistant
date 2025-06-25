@@ -2,6 +2,7 @@ import "./mainParameters.css";
 import "../CollectResume/collectResume.css";
 import { useContext, useEffect, useRef, useState } from "react";
 import { mainContext } from "../../../../MainContext";
+import { CustomLink } from "../../../CustomLink";
 
 type TypeProps = {
   setMainParameters: (parameters: TypeParameters) => void;
@@ -68,6 +69,11 @@ export const MainParameters = ({ setMainParameters }: TypeProps) => {
   return (
     <div className="mainParameters">
       <div>
+        <div className="apiKeyLink">
+          <CustomLink to="/ApiKeyEdit" className="CustomLinkBtn">
+            Edit API key
+          </CustomLink>
+        </div>
         <div>
           <label htmlFor="language">HR language:</label>
           <input

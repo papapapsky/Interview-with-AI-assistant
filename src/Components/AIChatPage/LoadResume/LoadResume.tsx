@@ -1,4 +1,5 @@
 import "./loadResume.css";
+import type { TypeAIChatPage } from "../../../types/types";
 import { useEffect, useState } from "react";
 import { geminiFetch } from "../../../GeminiFetch";
 import { CollectResume } from "./CollectResume/CollectResume";
@@ -6,7 +7,6 @@ import { CustomLink } from "../../CustomLink";
 import { MainParameters } from "./MainParameters/MainParameters";
 import { Link } from "react-router-dom";
 import { setResume } from "./Components/setResume";
-import type { TypeAIChatPage } from "../../../types/types";
 
 export const LoadResume = ({
   setUserResume,
@@ -22,7 +22,17 @@ export const LoadResume = ({
   setMainParameters,
   mainParameters,
 }: TypeAIChatPage) => {
-  const apiKey = import.meta.env.VITE_API_KEY;
+  const apiKey = localStorage.getItem("apiKey");
+  if (!apiKey) {
+    return (
+      <div className="errorBox">
+        <h1>Please, enter your API key first.</h1>
+        <CustomLink className="CustomLinkBtn" to="/ApiKeyEdit">
+          Create API key
+        </CustomLink>
+      </div>
+    );
+  }
   const [showAnimation, setShowAnimation] = useState("");
 
   useEffect(() => {
@@ -39,6 +49,12 @@ export const LoadResume = ({
     setFetchError(false);
 
     try {
+      if (!apiKey) {
+        setFetchError(true);
+        setFetchLoading(false);
+        return;
+      }
+
       const response = await geminiFetch(apiKey, userResume);
       const parsed = JSON.parse(`${response.text}`);
       setQuestions(parsed);

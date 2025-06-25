@@ -4,6 +4,7 @@ import type React from "react";
 import { aiMessageGeneratePrompts } from "../../../../GeminiPrompts/geminiPrompts";
 
 type TypeAIMessage = {
+  setAllowPasting: (allowPasting: boolean) => void;
   state: {
     oralCorrectAnswers: number;
     techCorrectAnswers: number;
@@ -20,6 +21,7 @@ type TypeAIMessage = {
 };
 
 export const aiMessageGenerate = async ({
+  setAllowPasting,
   state,
   setState,
   setError,
@@ -31,7 +33,7 @@ export const aiMessageGenerate = async ({
   setGeminiAnswers,
   setCurrentQuestionIndex,
 }: TypeAIMessage) => {
-  const apiKey = import.meta.env.VITE_API_KEY;
+  const apiKey = localStorage.getItem("apiKey");
 
   const currentQuestionKey = `question${userAnswers.length}`;
   const userAnswerKey = userAnswers.length - 1;
@@ -45,6 +47,10 @@ export const aiMessageGenerate = async ({
         userAnswer: userAnswers[userAnswerKey],
       });
       setGeminiActive(true);
+      if (!apiKey) {
+        setError(true);
+        return false;
+      }
       const AImessage = await geminiFetch(apiKey, GPTprompt, interviewConfig);
       const formattedResponse = JSON.parse(`${AImessage.text}`)[0];
 
@@ -55,12 +61,14 @@ export const aiMessageGenerate = async ({
         });
         setInterviewResult((event) => event + 1);
       }
+      setAllowPasting(true);
       setGeminiAnswers((prev) => [...prev, formattedResponse]);
       setCurrentQuestionIndex((prev) => prev + 1);
+      return true;
     }
   } catch (err) {
-    console.log(err);
     setError(true);
+    return false;
   } finally {
     setGeminiActive(false);
   }

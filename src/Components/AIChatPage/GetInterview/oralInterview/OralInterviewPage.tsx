@@ -14,6 +14,7 @@ export const InterviewPage = (): ReactElement => {
   }
   const [state, setState] = ResultContext;
 
+  const [allowPasting, setAllowPasting] = useState<boolean>(true);
   const [userAnswers, setUserAnswers] = useState<string[]>([]);
   const [geminiAnswers, setGeminiAnswers] = useState<any[]>([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
@@ -32,27 +33,39 @@ export const InterviewPage = (): ReactElement => {
     throw new Error("Language value is undefined in localStorage");
   }
 
+  const AImessageParameters = {
+    setAllowPasting,
+    state,
+    setState,
+    setError,
+    setGeminiActive,
+    userAnswers,
+    questions,
+    parsedState,
+    setInterviewResult,
+    setGeminiAnswers,
+    setCurrentQuestionIndex,
+  };
+
   useEffect(() => {
     const GetQuestions = localStorage.getItem("oral responses");
     if (GetQuestions) {
       setQuestions(JSON.parse(GetQuestions));
     }
   }, []);
-  useEffect(() => {
+
+  const messageGenerate = async () => {
     if (userAnswers.length > 0) {
-      aiMessageGenerate({
-        state,
-        setState,
-        setError,
-        setGeminiActive,
-        userAnswers,
-        questions,
-        parsedState,
-        setInterviewResult,
-        setGeminiAnswers,
-        setCurrentQuestionIndex,
-      });
+      const message = await aiMessageGenerate(AImessageParameters);
+
+      if (!message) {
+        setAllowPasting(false);
+      }
     }
+  };
+
+  useEffect(() => {
+    messageGenerate();
   }, [userAnswers, questions]);
 
   const handleUserAnswer = (answer: string) => {
@@ -97,9 +110,15 @@ export const InterviewPage = (): ReactElement => {
           </div>
         </div>
       )}
-      {error && <h3 className="mistake">Request error. Please try again</h3>}
+      {error && (
+        <>
+          <h3 className="mistake">Request error. Please try again</h3>
+          <button onClick={messageGenerate}>Try again</button>
+        </>
+      )}
       {currentQuestionIndex < Object.keys(questions).length && (
         <PrintableArea
+          allowPasting={allowPasting}
           geminiAnswers={geminiAnswers[geminiAnswers.length - 1]}
           loading={geminiActive}
           currentQuestion={questions[`question${currentQuestionIndex + 1}`]}

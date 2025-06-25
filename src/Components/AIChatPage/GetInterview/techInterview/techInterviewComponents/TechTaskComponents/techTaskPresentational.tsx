@@ -1,3 +1,4 @@
+import "../../techInterview.css";
 import { useContext, useEffect, useRef, useState } from "react";
 import type { TypeTechTask } from "../../../../../../types/types";
 import { InterviewEnd } from "../techInterviewEnd";
@@ -38,10 +39,10 @@ export const TechTaskPresentational = ({ ...props }: TypeTechTask) => {
   return (
     <div className={`geminiTask ${props.showAnimation}`}>
       {props.error && (
-        <>
-          <h3>Request error, please try again</h3>
+        <div className="errorBox">
+          <h3 className="mistake">Request error, please try again</h3>
           <button onClick={() => props.techTaskGenerate()}>Try again</button>
-        </>
+        </div>
       )}
       {props.loading && (
         <>

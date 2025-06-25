@@ -8,6 +8,7 @@ import { MainContext } from "./MainContext";
 import { TechInterviewPage } from "./Components/AIChatPage/GetInterview/techInterview/TechInterviewPage";
 import { NotFoundPage } from "./Components/NotFoundPage/NotFoundPage";
 import { InterviewResult } from "./InterviewResult";
+import { ApiKeyEdit } from "./Components/ApiKeyEditPage/ApiKeyEdit";
 
 function App() {
   return (
@@ -23,12 +24,12 @@ function App() {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/AIChat" element={<AIChatPage />} />
+            <Route path="/ApiKeyEdit" element={<ApiKeyEdit />} />
             <Route path="/AIChat/OralInterview" element={<InterviewPage />} />
             <Route
               path="/AiChat/TechInterview"
               element={<TechInterviewPage />}
             />
-
             <Route path="*" element={<NotFoundPage />}></Route>
           </Routes>
         </InterviewResult>

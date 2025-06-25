@@ -1,0 +1,78 @@
+.apiKeyEditPage {
+  opacity: 0;
+  max-width: 1200px;
+  margin: 20px auto;
+}
+
+.headLines {
+  color: var(--linkColor);
+}
+
+.miniHeadLines {
+  color: var(--linkColor);
+
+  margin-top: 30px;
+  font-size: 32px;
+}
+
+.HyperLink {
+  padding: 5px;
+  border-radius: 5px;
+  background-color: none;
+}
+
+.HyperLink:hover {
+  background-color: none;
+}
+
+.dedicatedText {
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 10px;
+  padding: 10px;
+  background-color: var(--buttonColor);
+}
+
+.InsctructionList li {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.apiKeyInput {
+  outline: none;
+
+  padding: 10px;
+  width: 40%;
+  margin: 0 auto;
+  display: block;
+
+  border-radius: 5px;
+  border: 2px solid var(--linkColor);
+}
+
+@keyframes pageShow {
+  from {
+    opacity: 0;
+    margin-top: 100px;
+  }
+  to {
+    opacity: 1;
+    margin-top: 0;
+  }
+}
+
+.confirmBtn {
+  display: block;
+  margin: 0 auto;
+
+  margin-top: 30px;
+}
+
+.confirmBtn:focus {
+  outline: none;
+}
+
+.SavedMessage {
+  text-align: center;
+  color: rgb(0, 214, 0);
+}

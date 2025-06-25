@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import "./printableArea.css";
 
 interface IPrintableAreaProps {
+  allowPasting: boolean;
   geminiAnswers: any[];
   loading: boolean;
   currentQuestion: string;
@@ -38,7 +39,7 @@ export default function PrintableArea(props: IPrintableAreaProps) {
   const SendAnswer = () => {
     const userAnswer = InputRef.current?.value.trim();
 
-    if (!props.loading) {
+    if (!props.loading && props.allowPasting) {
       if (userAnswer && props.currentQuestion) {
         props.handleUserAnswer(userAnswer);
         if (InputRef.current) {
