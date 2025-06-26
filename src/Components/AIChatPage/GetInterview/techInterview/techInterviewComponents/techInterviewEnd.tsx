@@ -31,8 +31,8 @@ export const InterviewEnd = ({
             <span>{questionsQuantity}</span>
           </h2>
           <h2>
-            <span>Your technical correct answers:</span> {techCorrectAnswers} /{" "}
-            <span>{techQuestionsQuantity}</span>
+            <span>Your technical correct answers:</span>{" "}
+            <span>{techCorrectAnswers}</span> / {techQuestionsQuantity - 1}
           </h2>
           <CustomLink to="/" className="CustomLinkBtn">
             Go to homepage

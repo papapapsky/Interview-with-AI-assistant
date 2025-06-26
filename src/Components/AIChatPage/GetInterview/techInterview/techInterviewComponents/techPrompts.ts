@@ -23,9 +23,10 @@ export const generateTasksPrompt = (
   userLanguage: string,
   userResume: string
 ) => {
-  return `ANSWER ON ${userLanguage} AND WITHOUT TRIPLE QUOTES.You are my interviewer and you have to test me on my knowledge of my technology stack and focus, make up questions that are similar to real ones from real tech interviews.  This is my resume - ${userResume},
+  return `ANSWER ON ${userLanguage} AND WITHOUT TRIPLE QUOTES. You are my interviewer and you have to test me on my knowledge of my technology stack and focus, make up questions that are similar to real ones from real tech interviews. This is my resume - ${userResume},
    please create 3 technical tasks for my technology stack.
-
+   
+  if it is clear from the resume that the person is not a programmer, then also make up 3 questions that need to be answered in detail. As a replacement for the "code solution", write a verbal solution to the problem. the keys of the objects being transferred do not need to be renamed.
    Write the kind of tasks that are mostly asked at interviews in my field and level.
    
     TASKS SHOULD NOT BE VERY LONG, THE MAIN TASK IS TO TEST ME FOR KNOWLEDGE OF MY STACK, these could be algorithms or creating or SMALL COMPONENT. the implementation should not exceed 30-50 lines of code. The tasks must be difficult enough and show my skills!  
