@@ -18,11 +18,17 @@ export const mainContext = React.createContext<
 >(undefined);
 
 export const MainContext = ({ children }: PropsWithChildren) => {
-  const state = useState<TypeMainParameters>({
-    language: "",
-    techInterview: true,
-    questionsQuantity: 10,
-    loadedUserResume: "",
+  const state = useState<TypeMainParameters>(() => {
+    const saved = localStorage.getItem("mainParameters");
+    return saved
+      ? JSON.parse(saved)
+      : {
+          language: "",
+          techInterview: true,
+          questionsQuantity: 10,
+          loadedUserResume: "",
+        };
   });
+
   return <mainContext.Provider value={state}>{children}</mainContext.Provider>;
 };

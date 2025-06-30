@@ -27,8 +27,14 @@ export const MainParameters = ({ setMainParameters }: TypeProps) => {
   useEffect(() => {
     const savedParameters = localStorage.getItem("mainParameters");
 
-    if (JSON.parse(`${savedParameters}`).language) {
+    if (JSON.parse(`${savedParameters}`)) {
       setLanguage(JSON.parse(`${savedParameters}`).language);
+      setQuestionsQuantity(JSON.parse(`${savedParameters}`).questionsQuantity);
+
+      const checked = JSON.parse(`${savedParameters}`).techInterview;
+      if (checked && techInterviewCheck.current) {
+        techInterviewCheck.current.checked = true;
+      }
     }
   }, []);
 
