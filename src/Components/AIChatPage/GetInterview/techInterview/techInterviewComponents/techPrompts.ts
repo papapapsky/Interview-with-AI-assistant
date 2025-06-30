@@ -6,7 +6,7 @@ export const checkAnswerPrompt = (tasks: string, userCodeResponse: string) => {
   Task description:
   ${tasks}
 
-  Candidate's code:
+  Candidate's response:
   ${userCodeResponse}
 
   Return ONLY this JSON object without any explanation or formatting:

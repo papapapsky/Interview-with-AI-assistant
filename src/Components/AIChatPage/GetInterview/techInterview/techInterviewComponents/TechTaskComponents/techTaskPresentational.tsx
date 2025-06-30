@@ -41,6 +41,10 @@ export const TechTaskPresentational = ({ ...props }: TypeTechTask) => {
       {props.error && (
         <div className="errorBox">
           <h3 className="mistake">Request error, please try again</h3>
+          <h4 className="errorExplanation">
+            this is normal, perhaps the answer from the neural network is not
+            what we need.
+          </h4>
           <button onClick={() => props.techTaskGenerate()}>Try again</button>
         </div>
       )}

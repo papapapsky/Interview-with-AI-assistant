@@ -12,6 +12,11 @@ body {
   margin: 0 auto;
 }
 
+.errorExplanation {
+  color: #464646;
+  margin-bottom: 202px;
+}
+
 .mistake {
   font-weight: 700;
   font-size: 1.5rem;
@@ -97,6 +102,13 @@ body {
 .geminiTask h4 {
   color: rgba(255, 255, 255, 0.809);
   margin: 0;
+
+  font-weight: 600;
+}
+
+.errorBox h4 {
+  color: #939393;
+  margin-bottom: 20px;
 
   font-weight: 600;
 }

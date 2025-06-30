@@ -1,11 +1,13 @@
 export const geminiValidation = (geminiAnswer: object[]): boolean => {
-  const answerKeys = ["exampleCode", "taskExplanation", "technologies"];
+  const answerKeys = ["taskExplanation", "exampleCode", "technologies"];
 
-  if (!Array.isArray(geminiAnswer) || geminiAnswer.length !== 3) return false;
-
+  if (geminiAnswer.length !== answerKeys.length) return false;
+  console.log("asdasd");
   return geminiAnswer.every((item) => {
     const keys = Object.keys(item);
-    if (keys.length !== answerKeys.length) return false;
+    if (keys.length !== answerKeys.length) {
+      return false;
+    }
 
     return keys.every((key) => answerKeys.includes(key));
   });
