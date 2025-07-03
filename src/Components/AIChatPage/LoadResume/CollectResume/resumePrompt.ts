@@ -41,6 +41,7 @@ export const generateQuestionsPrompt = ({
     reply with javascript object only.
     Ask questions and treat them as if you were in a real conversation at a real interview as an interviewer.
     NAME OF THE KEYS PROPRIETARY question1, question2 etc.
-    WITHOUT TRIPLE BACKTICKS and explanations on the type of json, javascript, etc., make it so that in text there is only an object for parsing.
+    WITHOUT TRIPLE BACKTICKS and explanations on the type of json, javascript, etc., make it so that in text there is only an objects.
+    I ask one more, NO SYMBOLS, WORDS OR SIGNS OUTSIDE THE OBJECT.
     Write only a questions.`;
 };
