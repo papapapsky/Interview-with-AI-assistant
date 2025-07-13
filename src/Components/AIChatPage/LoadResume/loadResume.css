@@ -18,6 +18,14 @@
   border: 3px solid var(--linkColor);
 }
 
+.fullInterviewPage {
+  animation: pageShow 0.3s ease forwards;
+}
+
+.interviewTitle {
+  margin-top: 50px;
+}
+
 .ifErrorBtn {
   display: block;
   margin: 0 auto;

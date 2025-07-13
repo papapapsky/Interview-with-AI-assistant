@@ -6,6 +6,7 @@ type TypeMainParameters = {
   techInterview: boolean;
   questionsQuantity: number;
   loadedUserResume: string;
+  interviewType: string;
 };
 
 type TypeParameterstContext = [
@@ -27,6 +28,7 @@ export const MainContext = ({ children }: PropsWithChildren) => {
           techInterview: true,
           questionsQuantity: 10,
           loadedUserResume: "",
+          interviewType: "fullInterview",
         };
   });
 

@@ -48,8 +48,8 @@ textarea {
 }
 
 .loader {
-  border: 8px solid #f3f3f3; /* Светлый фон */
-  border-top: 8px solid #8259ff; /* Синий цвет верхней части */
+  border: 8px solid #f3f3f3;
+  border-top: 8px solid #8259ff;
   border-radius: 50%;
   width: 40px;
   height: 40px;

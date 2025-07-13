@@ -1,12 +1,15 @@
 import "./loadResume.css";
 import type { TypeAIChatPage } from "../../../types/types";
-import { useEffect, useState } from "react";
-import { geminiFetch } from "../../../GeminiFetch";
+import { useContext, useEffect, useState } from "react";
+import { fetchQuestions } from "./Components/fetchQuestions";
 import { CollectResume } from "./CollectResume/CollectResume";
 import { CustomLink } from "../../CustomLink";
 import { MainParameters } from "./MainParameters/MainParameters";
 import { Link } from "react-router-dom";
 import { setResume } from "./Components/setResume";
+import { mainContext } from "../../../MainContext";
+import { ThematicInterview } from "./MainParameters/ThematicInterview/ThematicInterview";
+import { renderLoading } from "./Components/renderComponents";
 
 export const LoadResume = ({
   setUserResume,
@@ -23,6 +26,7 @@ export const LoadResume = ({
   mainParameters,
 }: TypeAIChatPage) => {
   const apiKey = localStorage.getItem("apiKey");
+  const context = useContext(mainContext);
   if (!apiKey) {
     return (
       <div className="errorBox">
@@ -33,6 +37,17 @@ export const LoadResume = ({
       </div>
     );
   }
+  if (!context) {
+    throw new Error("error, context undefined");
+  }
+  const fetchProps = {
+    setFetchError: setFetchError,
+    setFetchLoading: setFetchLoading,
+    setQuestions: setQuestions,
+    apiKey: apiKey,
+    userResume: userResume,
+  };
+  const [state] = context;
   const [showAnimation, setShowAnimation] = useState("");
 
   useEffect(() => {
@@ -44,31 +59,9 @@ export const LoadResume = ({
     }
   }, []);
 
-  const fetchQuestions = async () => {
-    setFetchLoading(true);
-    setFetchError(false);
-
-    try {
-      if (!apiKey) {
-        setFetchError(true);
-        setFetchLoading(false);
-        return;
-      }
-
-      const response = await geminiFetch(apiKey, userResume);
-      const parsed = JSON.parse(`${response.text}`);
-      setQuestions(parsed);
-      localStorage.setItem("oral responses", `${response.text}`);
-    } catch (err) {
-      setFetchError(true);
-    } finally {
-      setFetchLoading(false);
-    }
-  };
-
   useEffect(() => {
     if (!userResume) return;
-    fetchQuestions();
+    fetchQuestions(fetchProps);
   }, [userResume]);
 
   const handleFileLoad = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -89,32 +82,35 @@ export const LoadResume = ({
           </Link>
         )}
       </h3>
-      <h1>Let`s take interview!</h1>
+      <h1 className="interviewTitle">Let`s take interview!</h1>
       <MainParameters setMainParameters={setMainParameters} />
-      <form className="loadFileForm">
-        <input
-          type="file"
-          id="resumeLoad"
-          accept=".txt"
-          onChange={handleFileLoad}
+      {state.interviewType === "fullInterview" ? (
+        <div className="fullInterviewPage">
+          <form className="loadFileForm">
+            <input
+              type="file"
+              id="resumeLoad"
+              accept=".txt"
+              onChange={handleFileLoad}
+            />
+            <label htmlFor="resumeLoad">Load resume</label>
+          </form>
+          <CollectResume setResumeText={setUserResume} />
+        </div>
+      ) : (
+        <ThematicInterview
+          setFetchError={setFetchError}
+          setFetchLoading={setFetchLoading}
+          setQuestions={setQuestions}
         />
-        <label htmlFor="resumeLoad">Load resume</label>
-      </form>
-      <CollectResume setResumeText={setUserResume} />
-    </div>
-  );
-
-  const renderLoading = () => (
-    <div>
-      <div className="loader"></div>
-      <h2>Please wait, AI is generating questions...</h2>
+      )}
     </div>
   );
 
   const renderError = () => (
     <div>
       <h3>Request error, please try again</h3>
-      <button onClick={() => fetchQuestions()} className="ifErrorBtn">
+      <button onClick={() => fetchQuestions(fetchProps)} className="ifErrorBtn">
         Try again
       </button>
     </div>

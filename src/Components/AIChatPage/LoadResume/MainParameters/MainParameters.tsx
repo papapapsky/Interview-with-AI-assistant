@@ -3,6 +3,7 @@ import "../CollectResume/collectResume.css";
 import { useContext, useEffect, useRef, useState } from "react";
 import { mainContext } from "../../../../MainContext";
 import { CustomLink } from "../../../CustomLink";
+import { InterviewTypeChange } from "./interviewTypeChange/InterviewTypeChange";
 
 type TypeProps = {
   setMainParameters: (parameters: TypeParameters) => void;
@@ -22,6 +23,9 @@ export const MainParameters = ({ setMainParameters }: TypeProps) => {
   const [state, setState] = context;
   const [language, setLanguage] = useState<string>("English");
   const [questionsQuantity, setQuestionsQuantity] = useState<number>(10);
+  const [fullInterviewPage, setFullInterviewPage] = useState<boolean>(true);
+  const [thematicInterviewPage, setThematicInterviewPage] =
+    useState<boolean>(false);
   const techInterviewCheck = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -80,6 +84,12 @@ export const MainParameters = ({ setMainParameters }: TypeProps) => {
             Edit API key
           </CustomLink>
         </div>
+        <InterviewTypeChange
+          setThematicInterviewPage={setThematicInterviewPage}
+          setFullInterviewPage={setFullInterviewPage}
+          fullInterview={fullInterviewPage}
+          thematicInterview={thematicInterviewPage}
+        />
         <div>
           <label htmlFor="language">HR language:</label>
           <input

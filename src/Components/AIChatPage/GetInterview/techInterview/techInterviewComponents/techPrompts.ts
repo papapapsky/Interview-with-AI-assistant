@@ -1,34 +1,46 @@
 export const checkAnswerPrompt = (tasks: string, userCodeResponse: string) => {
   return `You are a strict technical interviewer.
 
-  Evaluate the candidate's code strictly based on the task.
+Evaluate the candidate's code strictly according to the task requirements.
 
-  Task description:
-  ${tasks}
+Task:
+${tasks}
 
-  Candidate's response:
-  ${userCodeResponse}
+Candidate's code:
+${userCodeResponse}
 
-  Return ONLY this JSON object without any explanation or formatting:
+Return ONLY this JSON object:
+{"checkCorrectlyAnswer": true/false}
 
-  {"checkCorrectlyAnswer": true/false}
+Your answer must be fully objective and based only on correctness and completeness of the solution.
 
-  ASK WITHOUT triple backticks
-  DO NOT wrap your answer in triple backticks.
-  DO NOT use markdown.
-  DO NOT include any extra text or formatting. Output only the JSON object.`;
+DO NOT include backticks, DO NOT use markdown, DO NOT add any explanation or comments.
+Reply with the JSON object only. No surrounding text.
+`;
 };
 
 export const generateTasksPrompt = (
   userLanguage: string,
   userResume: string
 ) => {
-  return `ANSWER ON ${userLanguage} AND WITHOUT TRIPLE QUOTES. You are my interviewer and you have to test me on my knowledge of my technology stack and focus, make up questions that are similar to real ones from real tech interviews. This is my resume - ${userResume},
-   please create 3 technical tasks for my technology stack.
-   
-  if it is clear from the resume that the person is not a programmer, then also make up 3 questions that need to be answered in detail. As a replacement for the "code solution", write a verbal solution to the problem. the keys of the objects being transferred do not need to be renamed.
-   Write the kind of tasks that are mostly asked at interviews in my field and level.
-   
-  TASKS SHOULD NOT BE VERY LONG, THE MAIN TASK IS TO TEST ME FOR KNOWLEDGE OF MY STACK, these could be algorithms or creating or SMALL COMPONENT. the implementation should not exceed 30-50 lines of code. The tasks must be difficult enough and show my skills!  
-   exampleCode IS REQUIRED! Your response must have 3 keys: taskExplanation, exampleCode, technologies.`;
+  console.log(userResume);
+  return `You are my technical interviewer. Your job is to realistically test my knowledge of my technology stack from a real-world interview perspective.
+
+ONLY reply with a JavaScript object (no quotes, backticks, or other wrappers). Each task must contain:
+- taskExplanation (short, interview-style description),
+- exampleCode (30–50 lines maximum),
+- technologies (array of specific technologies used in the task).
+
+Use ${userLanguage}.
+
+Base all questions strictly on this resume or technology stack: ${userResume}
+
+Tasks must reflect the actual types of technical challenges candidates are asked during interviews in this field and level. These can include small components, specific algorithms, code optimizations, or typical usage patterns in the given technologies.
+
+If it is clear from ${userResume} that the person is not a programmer, replace technical code tasks with open-ended problem-solving questions requiring detailed verbal answers. In that case, set "exampleCode" to a short written explanation.
+
+You MUST create 3 tasks. The tasks should be challenging and test real understanding. Each task should be concise but not trivial.
+
+DO NOT include any introductory text or extra explanations outside the object. Reply with the JavaScript object only.
+`;
 };
