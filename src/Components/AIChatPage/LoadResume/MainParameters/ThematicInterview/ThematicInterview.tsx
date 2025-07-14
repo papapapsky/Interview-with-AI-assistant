@@ -35,6 +35,7 @@ export const ThematicInterview = ({
       });
 
       const geminiResponse = await geminiFetch(apiKey, thematicPromptText);
+      console.log(geminiResponse);
       const parsed = JSON.parse(`${geminiResponse.text}`);
       setQuestions(parsed);
       localStorage.setItem("oral responses", `${geminiResponse.text}`);

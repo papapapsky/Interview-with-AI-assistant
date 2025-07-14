@@ -57,26 +57,26 @@ export const GeminiAnswerFormat = ({
           </p>
         )}
         <br />
-        {!nextQuestion && (
-          <div className="resultBox">
-            <h1>
-              Oral interview completed. <br />
-              Your result:{" "}
-              <span>
-                {interviewResult} / {Object.keys(questions).length}.
-              </span>
-            </h1>
-            {techInterview && (
-              <Link to="/AIChat/TechInterview">
-                proceed to the technical part
-              </Link>
-            )}
-            {!techInterview && (
-              <Link to="/AIChat">Return to interview settings</Link>
-            )}
-          </div>
-        )}
       </div>
+      {!nextQuestion && (
+        <div className="resultBox">
+          <h1>
+            Oral interview completed. <br />
+            Your result:{" "}
+            <span>
+              {interviewResult} / {Object.keys(questions).length}.
+            </span>
+          </h1>
+          {techInterview && (
+            <Link to="/AIChat/TechInterview">
+              Proceed to the technical part
+            </Link>
+          )}
+          {!techInterview && (
+            <Link to="/AIChat">Return to interview settings</Link>
+          )}
+        </div>
+      )}
     </>
   );
 };

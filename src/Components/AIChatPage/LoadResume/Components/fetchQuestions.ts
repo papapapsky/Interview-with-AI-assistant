@@ -26,7 +26,7 @@ export const fetchQuestions = async ({
     }
     const response = await geminiFetch(apiKey, userResume);
     const parsed = JSON.parse(`${response.text}`);
-    console.log(setQuestions);
+
     setQuestions(parsed);
     localStorage.setItem("oral responses", `${response.text}`);
   } catch (err) {
