@@ -6,14 +6,3 @@ export const renderLoading = () => {
     </div>
   );
 };
-
-export const renderError = () => {
-  return (
-    <div>
-      <h3>Request error, please try again</h3>
-      <button onClick={() => fetchQuestions()} className="ifErrorBtn">
-        Try again
-      </button>
-    </div>
-  );
-};

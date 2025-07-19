@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import "./interviewTypeChange.css";
 import { mainContext } from "../../../../../MainContext";
+import { logger } from "./Logger/logger";
 
 type props = {
   setFullInterviewPage: (fullInterview: boolean) => void;
@@ -24,17 +25,20 @@ export const InterviewTypeChange = ({
       setState({ ...state, interviewType: "fullInterview" });
       setFullInterviewPage(true);
       setThematicInterviewPage(false);
+      logger.log("toFullInterview");
     } else if (event.target.id === "thematicInterviewBtn") {
       setState({ ...state, interviewType: "thematicInterview" });
       setFullInterviewPage(false);
       setThematicInterviewPage(true);
+      logger.log("toThematicInterview");
     }
   };
 
   return (
-    <div className="typeChangeBox">
+    <div className="typeChangeBox" data-testid="component">
       <div>
         <button
+          data-testid="fullInterviewBtn"
           id="fullInterviewBtn"
           className={`fullInterviewBtn ${
             state.interviewType === "fullInterview" ? "changedBtn" : ""
@@ -44,6 +48,7 @@ export const InterviewTypeChange = ({
           Full interview
         </button>
         <button
+          data-testid="thematicInterviewBtn"
           onClick={(event) => changePage(event)}
           className={`thematicInterview ${
             state.interviewType === "thematicInterview" ? "changedBtn" : ""

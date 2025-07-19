@@ -34,14 +34,22 @@ export const generateQuestionsPrompt = ({
   userResume,
   questionsQuantity,
 }: TypeResumePropmpts) => {
-  return `PLEASE, ANSWER ON ${language}. You are my interviewer. ${userResume} Please make me ${questionsQuantity} questions that are asked at an interview for a programmer position in this form. WRITE ONLY QUESTIONS Something like this: 
-    {"qustion1":"question","qustion2":"question"}. 
+  console.log("asdasdasdasdmkjashdkljasjhkldj");
+  return `PLEASE, RESPOND IN ${language}.
+You are an experienced technical interviewer.
+Use this resume: ${userResume}
+Create exactly ${questionsQuantity} questions that are relevant to a real job interview for the candidate based on their resume.
 
-    If it is clear from the resume that the person is not a programmer, the composition of questions for him that correspond to his profession, which he indicated in the resume. The structure of the source and the names of the keys remain the same.
-    reply with javascript object only.
-    Ask questions and treat them as if you were in a real conversation at a real interview as an interviewer.
-    NAME OF THE KEYS PROPRIETARY question1, question2 etc.
-    WITHOUT TRIPLE BACKTICKS and explanations on the type of json, javascript, etc., make it so that in text there is only an objects.
-    I ask one more, NO SYMBOLS, WORDS OR SIGNS OUTSIDE THE OBJECT.
-    Write only a questions.`;
+following strict format:
+{"question1":"question","question2":"question",...}
+
+Only provide questions. No explanations, no formatting, no markdown, no triple backticks.
+
+Each key must strictly follow the format: question1, question2, question3, etc.
+Do not use any characters, symbols, words, or signs outside the object.
+
+Questions must not require writing code — only verbal technical discussion is allowed.
+If it is clear from the resume that the candidate is not a programmer, generate domain-relevant questions based on the candidate's profession.
+
+This must look like a real technical interview. Keep it realistic, precise, and concise. Only return the object with the questions.`;
 };

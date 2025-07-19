@@ -16,9 +16,10 @@ export default function PrintableArea(props: IPrintableAreaProps) {
 
   useEffect(() => {
     const geminiHTMLAnswers = document.querySelectorAll(".GeminiAnswer");
-    geminiHTMLAnswers[geminiHTMLAnswers.length - 1].scrollIntoView({
-      behavior: "smooth",
-    });
+    const lastAnswer = geminiHTMLAnswers[geminiHTMLAnswers.length - 1];
+    if (lastAnswer) {
+      lastAnswer.scrollIntoView({ behavior: "smooth" });
+    }
   }, [props.geminiAnswers]);
 
   useEffect(() => {
@@ -60,6 +61,7 @@ export default function PrintableArea(props: IPrintableAreaProps) {
         className={`printableArea ${maximize ? "printableAreaFullscreen" : ""}`}
       >
         <textarea
+          data-testid="userInputArea"
           ref={InputRef}
           placeholder="Your response"
           className={`printableTextArea ${maximize ? "textAreaFullscren" : ""}`}

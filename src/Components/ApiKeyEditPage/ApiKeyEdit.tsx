@@ -11,7 +11,6 @@ export const ApiKeyEdit = () => {
   useEffect(() => {
     const savedApiKey = localStorage.getItem("apiKey");
     if (savedApiKey) {
-      console.log("asdasd");
       if (apiKeyRef.current) {
         apiKeyRef.current.value = savedApiKey;
       }

@@ -33,9 +33,9 @@ export const ThematicInterview = ({
         questionsQuantity: state.questionsQuantity,
         language: state.language,
       });
+      localStorage.setItem("userResume", thematicPromptText);
 
       const geminiResponse = await geminiFetch(apiKey, thematicPromptText);
-      console.log(geminiResponse);
       const parsed = JSON.parse(`${geminiResponse.text}`);
       setQuestions(parsed);
       localStorage.setItem("oral responses", `${geminiResponse.text}`);
@@ -50,7 +50,6 @@ export const ThematicInterview = ({
   const startInterview = () => {
     if (topicRef.current?.value !== "") {
       console.log("Запрос отправлен");
-      localStorage.setItem("userResume", `${topicRef.current?.value}`);
       geminiThematicFetch();
     }
   };

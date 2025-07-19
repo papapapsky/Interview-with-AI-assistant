@@ -1,7 +1,7 @@
 import { useState, type PropsWithChildren } from "react";
 import React from "react";
 
-type TypeMainParameters = {
+export type TypeMainParameters = {
   language: string;
   techInterview: boolean;
   questionsQuantity: number;

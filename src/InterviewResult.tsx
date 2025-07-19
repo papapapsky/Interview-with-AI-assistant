@@ -1,7 +1,7 @@
 import { useState, type PropsWithChildren } from "react";
 import React from "react";
 
-type TypeInterviewResult = {
+export type TypeInterviewResult = {
   oralCorrectAnswers: number;
   techCorrectAnswers: number;
 };
