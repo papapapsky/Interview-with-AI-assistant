@@ -4,7 +4,7 @@ type props = {
   setFetchLoading: (fetchLoading: boolean) => void;
   setFetchError: (fetchError: boolean) => void;
   setQuestions: (questions: object) => void;
-  apiKey: string;
+  apiKey: string | null;
 };
 
 export const fetchQuestions = async ({
@@ -18,16 +18,13 @@ export const fetchQuestions = async ({
   setFetchError(false);
 
   try {
-    if (!apiKey && !UserResume) {
+    if (!apiKey || !UserResume) {
       setFetchError(true);
-      setFetchLoading(false);
       return;
     }
     const response = await geminiFetch(apiKey, `${UserResume}`);
-    console.log(response);
-    console.log(UserResume);
     const parsed = JSON.parse(`${response.text}`);
-    console.log(parsed);
+
     setQuestions(parsed);
     localStorage.setItem("oral responses", `${response.text}`);
   } catch (err) {
