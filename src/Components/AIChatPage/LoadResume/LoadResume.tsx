@@ -60,7 +60,7 @@ export const LoadResume = ({
   }, []);
 
   useEffect(() => {
-  if (!userResume) return;
+    if (!userResume) return;
     fetchQuestions(fetchProps);
   }, [userResume]);
 
@@ -125,14 +125,14 @@ export const LoadResume = ({
   );
 
   return (
-    <div className={showAnimation}>
+    <div className={showAnimation} data-testid="initialComponent">
       {fetchLoading && renderLoading()}
       {fetchError && renderError()}
       {!fetchLoading &&
         !fetchError &&
         Object.keys(questions).length === 0 &&
         renderInitial()}
-      {Object.keys(questions).length > 0 && renderReady()}
+      {Object.keys(questions).length > 0 && !fetchError && renderReady()}
     </div>
   );
 };

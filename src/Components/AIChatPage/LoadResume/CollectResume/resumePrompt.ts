@@ -34,7 +34,6 @@ export const generateQuestionsPrompt = ({
   userResume,
   questionsQuantity,
 }: TypeResumePropmpts) => {
-  console.log("asdasdasdasdmkjashdkljasjhkldj");
   return `PLEASE, RESPOND IN ${language}.
 You are an experienced technical interviewer.
 Use this resume: ${userResume}

@@ -52,7 +52,6 @@ describe("InterviewTypeChangeTest", () => {
         />
       </mainContext.Provider>
     );
-    screen.debug();
 
     const thematicBtn = screen.getByTestId("thematicInterviewBtn");
     fireEvent.click(thematicBtn);

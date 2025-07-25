@@ -1,4 +1,5 @@
 import { geminiFetch } from "../../../../GeminiFetch";
+import { oralQuestionConfig } from "../../GetInterview/geminiConfigs";
 
 type props = {
   setFetchLoading: (fetchLoading: boolean) => void;
@@ -22,7 +23,12 @@ export const fetchQuestions = async ({
       setFetchError(true);
       return;
     }
-    const response = await geminiFetch(apiKey, `${UserResume}`);
+    const response = await geminiFetch(
+      apiKey,
+      `${UserResume}`,
+      oralQuestionConfig
+    );
+    console.log(UserResume);
     const parsed = JSON.parse(`${response.text}`);
 
     setQuestions(parsed);

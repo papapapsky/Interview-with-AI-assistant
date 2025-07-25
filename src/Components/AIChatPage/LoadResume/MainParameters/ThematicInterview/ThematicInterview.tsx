@@ -3,6 +3,7 @@ import { useContext, useRef } from "react";
 import "./thematicInterview.css";
 import { mainContext } from "../../../../../MainContext";
 import { thematicPrompt } from "./thematicPrompt";
+import { oralQuestionConfig } from "../../../GetInterview/geminiConfigs";
 
 type props = {
   setFetchError: (fetchError: boolean) => void;
@@ -35,7 +36,11 @@ export const ThematicInterview = ({
       });
       localStorage.setItem("userResume", thematicPromptText);
 
-      const geminiResponse = await geminiFetch(apiKey, thematicPromptText);
+      const geminiResponse = await geminiFetch(
+        apiKey,
+        thematicPromptText,
+        oralQuestionConfig
+      );
       const parsed = JSON.parse(`${geminiResponse.text}`);
       setQuestions(parsed);
       localStorage.setItem("oral responses", `${geminiResponse.text}`);
@@ -49,7 +54,6 @@ export const ThematicInterview = ({
 
   const startInterview = () => {
     if (topicRef.current?.value !== "") {
-      console.log("Запрос отправлен");
       geminiThematicFetch();
     }
   };
@@ -60,10 +64,10 @@ export const ThematicInterview = ({
       <input
         className="writeTopic"
         name="topic"
-        id=""
+        data-testid="input"
         ref={topicRef}
         placeholder="// React routes, React hooks, axios etc."
-      ></input>
+      />
       <button className="startBtn" onClick={startInterview}>
         Start
       </button>

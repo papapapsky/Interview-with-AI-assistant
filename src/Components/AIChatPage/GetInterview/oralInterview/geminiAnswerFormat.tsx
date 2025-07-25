@@ -2,6 +2,9 @@ import HR from "../../../../../public/HR.png";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
+import hljs from "highlight.js";
+import "highlight.js/styles/tokyo-night-dark.css";
+
 type props = {
   geminiResponse: any;
   nextQuestion: string;
@@ -25,6 +28,12 @@ export const GeminiAnswerFormat = ({
         setTechInterview(true);
       }
     }
+    document.querySelectorAll("pre code").forEach((block) => {
+      block.removeAttribute("data-highlighted");
+    });
+    hljs.highlightAll();
+
+    console.log(geminiResponse.additionToAnswer);
   }, [geminiResponse.additionToAnswer]);
 
   return (
@@ -42,14 +51,21 @@ export const GeminiAnswerFormat = ({
               <h4>{value}</h4>
             </div>
           ))}
-        {geminiResponse.additionToAnswer &&
-          geminiResponse.additionToAnswer.map(
+        {geminiResponse.additionToAnswer.additionText &&
+          geminiResponse.additionToAnswer.additionText.map(
             (value: string, index: number) => (
               <div key={index} className="additionToAnswer">
                 <h4>{value}</h4>
               </div>
             )
           )}
+        {geminiResponse.additionToAnswer.codeAddition.length > 0 && (
+          <pre className="additionToAnswer">
+            <code>
+              {geminiResponse.additionToAnswer.codeAddition.join("\n")}
+            </code>
+          </pre>
+        )}
         {nextQuestion && (
           <p>
             <span className="nextQuestion">The next question:</span>{" "}

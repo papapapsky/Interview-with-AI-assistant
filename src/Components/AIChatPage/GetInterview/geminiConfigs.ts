@@ -17,13 +17,46 @@ export const interviewConfig = {
           },
         },
         additionToAnswer: {
-          type: Type.ARRAY,
-          items: {
-            type: Type.STRING,
+          type: Type.OBJECT,
+          properties: {
+            additionText: {
+              type: Type.ARRAY,
+              items: {
+                type: Type.STRING,
+              },
+            },
+            codeAddition: {
+              type: Type.ARRAY,
+              items: {
+                type: Type.STRING,
+              },
+            },
           },
+          propertyOrdering: ["additionText", "codeAddition"],
         },
       },
       propertyOrdering: ["answerStatus", "explanation", "additionToAnswer"],
+    },
+  },
+};
+
+export const oralQuestionConfig = {
+  responseMimeType: "application/json",
+  responseSchema: {
+    type: Type.OBJECT,
+    properties: {
+      question1: { type: Type.STRING },
+      question2: { type: Type.STRING },
+    },
+    additionalProperties: false,
+    propertyNames: {
+      pattern: "^question\\d+$",
+    },
+  },
+
+  formatOptions: {
+    json: {
+      stripTextMarkers: true,
     },
   },
 };

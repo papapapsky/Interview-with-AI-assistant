@@ -6,6 +6,7 @@ import { GeminiAnswerFormat } from "./geminiAnswerFormat";
 import { aiMessageGenerate } from "./AImessage/AIMessageGenerate";
 import { useContext } from "react";
 import { InterviewResultContext } from "../../../../InterviewResult";
+import { DotLoader } from "./visualComponents/DotLoader";
 
 export const InterviewPage = (): ReactElement => {
   const ResultContext = useContext(InterviewResultContext);
@@ -100,16 +101,7 @@ export const InterviewPage = (): ReactElement => {
           )}
         </div>
       ))}
-      {geminiActive && (
-        <div className="loading-indicator">
-          <span>Waiting for a response</span>
-          <div className="dot-loader">
-            <span className="dot dot1">.</span>
-            <span className="dot dot2">.</span>
-            <span className="dot dot3">.</span>
-          </div>
-        </div>
-      )}
+      {geminiActive && <DotLoader />}
       {error && (
         <>
           <h3 className="mistake">Request error. Please try again</h3>

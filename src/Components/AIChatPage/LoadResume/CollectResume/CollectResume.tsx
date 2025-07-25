@@ -5,9 +5,9 @@ import { mainContext } from "../../../../MainContext";
 import { ResumeOptions } from "./ResumeOptions/ResumeOptions";
 import { generateQuestionsPrompt, userResumePrompt } from "./resumePrompt";
 
-interface CollectResumeProps {
+type CollectResumeProps = {
   setResumeText: (text: string) => void;
-}
+};
 
 export type TypeFormInput = {
   name: string;
@@ -34,6 +34,7 @@ export const CollectResume = ({ setResumeText }: CollectResumeProps) => {
   const [state] = context;
 
   const onSubmit = (data: TypeFormInput) => {
+    console.log("asdasd");
     const userResume = userResumePrompt({
       name: data.name,
       direction: data.direction,

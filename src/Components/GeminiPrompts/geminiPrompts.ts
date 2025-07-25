@@ -15,7 +15,7 @@ Here is my answer: ${userAnswer}
 
 Evaluate the answer as either right or wrong. Then:
 
-If the answer is correct, confirm it is right and provide a constructive, professional addition or clarification.
+If the answer is correct, confirm it is right and provide a constructive, professional addition or clarification, If the answer add-on contains code, write it to the codeAddition, if not - keep empty massive. 
 
 If the answer is wrong, clearly state it is incorrect and provide the correct answer in a clear and concise way.
 
@@ -27,16 +27,14 @@ export const OralQuestionsResumePrompt = (
   language: string,
   questionsQuantity: number
 ) => {
-  return `RESPONSE IN ${language}. Act as my technical interviewer. Generate exactly ${questionsQuantity} real interview questions for a programmer position in the following strict format:
-{"question1":"question","question2":"question",...}
+  return `ANSWER ON ${language}. You are a technical interviewer. Generate exactly ${questionsQuantity} interview questions.
 
-Only provide questions. No explanations, no formatting, no markdown, no triple backticks.
+  STRICT RULES:
+  1. Output MUST be a PURE JSON OBJECT with keys like question1, question2...
+   Example: {"question1":"...", "question2":"..."}.
+  2. NEVER use markdown, code blocks (\`\`\`json\`\`\`), or any formatting.
+  3. NEVER add comments or explanatory text.
+  4. Keys MUST follow "question1", "question2" pattern.
 
-Each key must strictly follow the format: question1, question2, question3, etc.
-Do not use any characters, symbols, words, or signs outside the object.
-
-Questions must not require writing code — only verbal technical discussion is allowed.
-If it is clear from the resume that the candidate is not a programmer, generate domain-relevant questions based on the candidate's profession.
-
-This must look like a real technical interview. Keep it realistic, precise, and concise. Only return the object with the questions.`;
+Failure to follow these rules will cause the system to fail.`;
 };

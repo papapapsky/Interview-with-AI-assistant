@@ -18,7 +18,7 @@ export const setResume = (
         questionsQuantity
       );
       setUserResume(`${text}.${sampleText}`);
-      localStorage.setItem("userResume", `${text}`);
+      localStorage.setItem("userResume", `${text}.${sampleText}`);
     };
     reader.readAsText(file);
   }
