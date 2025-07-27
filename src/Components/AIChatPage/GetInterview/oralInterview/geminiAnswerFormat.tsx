@@ -1,5 +1,5 @@
 import HR from "../../../../../public/HR.png";
-import { useEffect, useState } from "react";
+import { useState, useLayoutEffect } from "react";
 import { Link } from "react-router-dom";
 
 import hljs from "highlight.js";
@@ -18,22 +18,27 @@ export const GeminiAnswerFormat = ({
   interviewResult,
   questions,
 }: props) => {
+  const userAnswersQuantity = localStorage.getItem("userAnswers");
   const [techInterview, setTechInterview] = useState<boolean>(false);
   const techInterviewCheck = localStorage.getItem("mainParameters");
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!nextQuestion && techInterviewCheck) {
       const ParsedState = JSON.parse(techInterviewCheck);
       if (ParsedState.techInterview) {
         setTechInterview(true);
       }
     }
-    document.querySelectorAll("pre code").forEach((block) => {
-      block.removeAttribute("data-highlighted");
-    });
-    hljs.highlightAll();
 
-    console.log(geminiResponse.additionToAnswer);
+    setTimeout(() => {
+      const blocks = document.querySelectorAll("pre code");
+
+      blocks.forEach((block) => {
+        block.removeAttribute("data-highlighted");
+      });
+
+      hljs.highlightAll();
+    }, 0);
   }, [geminiResponse.additionToAnswer]);
 
   return (
@@ -60,8 +65,8 @@ export const GeminiAnswerFormat = ({
             )
           )}
         {geminiResponse.additionToAnswer.codeAddition.length > 0 && (
-          <pre className="additionToAnswer">
-            <code>
+          <pre>
+            <code className="language-javascript">
               {geminiResponse.additionToAnswer.codeAddition.join("\n")}
             </code>
           </pre>
@@ -69,8 +74,11 @@ export const GeminiAnswerFormat = ({
         {nextQuestion && (
           <p>
             <span className="nextQuestion">
-              The {Object.keys(geminiResponse).length - 1}/
-              {Object.keys(questions).length} Question:
+              The{" "}
+              {Number(userAnswersQuantity) <= Object.keys(questions).length
+                ? userAnswersQuantity
+                : Object.keys(questions).length}
+              /{Object.keys(questions).length} Question:
             </span>{" "}
             {nextQuestion}
           </p>

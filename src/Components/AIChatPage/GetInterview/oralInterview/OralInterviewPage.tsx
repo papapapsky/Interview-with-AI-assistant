@@ -1,4 +1,3 @@
-import HR from "../../../../../public/HR.png";
 import { useEffect, useState, type ReactElement } from "react";
 import PrintableArea from "../PrintableArea/PrintableArea";
 import "./interviewPage.css";
@@ -7,6 +6,7 @@ import { aiMessageGenerate } from "./AImessage/AIMessageGenerate";
 import { useContext } from "react";
 import { InterviewResultContext } from "../../../../InterviewResult";
 import { DotLoader } from "./visualComponents/DotLoader";
+import { FirstQuestionRender } from "./visualComponents/FirstQuestionRender";
 
 export const InterviewPage = (): ReactElement => {
   const ResultContext = useContext(InterviewResultContext);
@@ -67,6 +67,9 @@ export const InterviewPage = (): ReactElement => {
 
   useEffect(() => {
     messageGenerate();
+    if (userAnswers) {
+      localStorage.setItem('userAnswers', String(userAnswers.length + 1))
+    }
   }, [userAnswers, questions]);
 
   const handleUserAnswer = (answer: string) => {
@@ -77,16 +80,7 @@ export const InterviewPage = (): ReactElement => {
     <div className="Dialog">
       <h1>HR interview</h1>
 
-      {currentQuestionIndex < Object.keys(questions).length && (
-        <div className="Phrase">
-          <div className="GeminiAnswer HRbox">
-            <img src={HR} alt="" className="HRimg" style={{ marginTop: 10 }} />
-            <h4 className="ShadowText">
-              {questions[`question${currentQuestionIndex + 1}`]}
-            </h4>
-          </div>
-        </div>
-      )}
+      <FirstQuestionRender currentQuestionIndex={currentQuestionIndex} questions={questions}/>
 
       {userAnswers.map((val: string, index: number) => (
         <div className="Phrase" key={index}>
