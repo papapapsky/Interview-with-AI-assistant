@@ -35,6 +35,7 @@ export const OralQuestionsResumePrompt = (
   2. NEVER use markdown, code blocks (\`\`\`json\`\`\`), or any formatting.
   3. NEVER add comments or explanatory text.
   4. Keys MUST follow "question1", "question2" pattern.
+  5  Questions must be short (10-20 words). there is no need to burden the interlocutor too much.
 
 Failure to follow these rules will cause the system to fail.`;
 };

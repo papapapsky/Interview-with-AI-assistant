@@ -15,20 +15,23 @@ export const fetchQuestions = async ({
   apiKey,
 }: props) => {
   const UserResume = localStorage.getItem("userResume");
+  const mainParameters = localStorage.getItem("mainParameters");
   setFetchLoading(true);
   setFetchError(false);
+  const questionsQuantity = JSON.parse(`${mainParameters}`).questionsQuantity;
 
   try {
-    if (!apiKey || !UserResume) {
+    if (!apiKey || !UserResume || !mainParameters) {
       setFetchError(true);
       return;
     }
     const response = await geminiFetch(
       apiKey,
       `${UserResume}`,
-      oralQuestionConfig
+      oralQuestionConfig(questionsQuantity)
     );
     console.log(UserResume);
+    console.log(response.text);
     const parsed = JSON.parse(`${response.text}`);
 
     setQuestions(parsed);

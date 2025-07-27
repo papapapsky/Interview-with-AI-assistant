@@ -43,6 +43,7 @@ following strict format:
 {"question1":"question","question2":"question",...}
 
 Only provide questions. No explanations, no formatting, no markdown, no triple backticks.
+Questions must be short, there is no need to burden the interlocutor too much
 
 Each key must strictly follow the format: question1, question2, question3, etc.
 Do not use any characters, symbols, words, or signs outside the object.

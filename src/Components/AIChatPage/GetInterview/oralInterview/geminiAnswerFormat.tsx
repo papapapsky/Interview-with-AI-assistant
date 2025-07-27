@@ -68,7 +68,10 @@ export const GeminiAnswerFormat = ({
         )}
         {nextQuestion && (
           <p>
-            <span className="nextQuestion">The next question:</span>{" "}
+            <span className="nextQuestion">
+              The {Object.keys(geminiResponse).length - 1}/
+              {Object.keys(questions).length} Question:
+            </span>{" "}
             {nextQuestion}
           </p>
         )}

@@ -40,25 +40,35 @@ export const interviewConfig = {
   },
 };
 
-export const oralQuestionConfig = {
-  responseMimeType: "application/json",
-  responseSchema: {
-    type: Type.OBJECT,
-    properties: {
-      question1: { type: Type.STRING },
-      question2: { type: Type.STRING },
-    },
-    additionalProperties: false,
-    propertyNames: {
-      pattern: "^question\\d+$",
-    },
-  },
+type questionsObject = {
+  [type: string]: { type: Type.STRING };
+};
 
-  formatOptions: {
-    json: {
-      stripTextMarkers: true,
+export const oralQuestionConfig = (questionQuantity: number) => {
+  const questionsObject: questionsObject = {};
+
+  for (let i = 0; i < questionQuantity; i++) {
+    questionsObject[`question${i + 1}`] = { type: Type.STRING };
+  }
+
+  return {
+    responseMimeType: "application/json",
+    responseSchema: {
+      type: Type.OBJECT,
+      properties: questionsObject,
+
+      additionalProperties: false,
+      propertyNames: {
+        pattern: "^question\\d+$",
+      },
     },
-  },
+
+    formatOptions: {
+      json: {
+        stripTextMarkers: true,
+      },
+    },
+  };
 };
 
 export const techInterviewConfig = {
