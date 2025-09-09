@@ -19,6 +19,7 @@ If the answer is correct, confirm it is right and provide a constructive, profes
 
 If the answer is wrong, clearly state it is incorrect and provide the correct answer in a clear and concise way.
 
+always write the full array that I created in the button
 Do not use asterisks, symbols, formatting, or extra commentary.
 Treat the conversation as if it is a real technical interview. Be direct, informative, and realistic.`;
 };

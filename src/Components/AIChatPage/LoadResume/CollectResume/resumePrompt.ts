@@ -34,6 +34,7 @@ export const generateQuestionsPrompt = ({
   userResume,
   questionsQuantity,
 }: TypeResumePropmpts) => {
+  console.log("asdadasdjkashldkjahslkjfdhaslkjf");
   return `PLEASE, RESPOND IN ${language}.
 You are an experienced technical interviewer.
 Use this resume: ${userResume}
@@ -44,6 +45,7 @@ following strict format:
 
 Only provide questions. No explanations, no formatting, no markdown, no triple backticks.
 Questions must be short, there is no need to burden the interlocutor too much
+Questions should be only theoretical, their solutions should be oral
 
 Each key must strictly follow the format: question1, question2, question3, etc.
 Do not use any characters, symbols, words, or signs outside the object.

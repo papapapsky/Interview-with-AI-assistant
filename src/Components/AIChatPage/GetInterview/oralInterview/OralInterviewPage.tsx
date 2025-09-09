@@ -68,7 +68,7 @@ export const InterviewPage = (): ReactElement => {
   useEffect(() => {
     messageGenerate();
     if (userAnswers) {
-      localStorage.setItem('userAnswers', String(userAnswers.length + 1))
+      localStorage.setItem("userAnswers", String(userAnswers.length + 1));
     }
   }, [userAnswers, questions]);
 
@@ -80,7 +80,10 @@ export const InterviewPage = (): ReactElement => {
     <div className="Dialog">
       <h1>HR interview</h1>
 
-      <FirstQuestionRender currentQuestionIndex={currentQuestionIndex} questions={questions}/>
+      <FirstQuestionRender
+        currentQuestionIndex={currentQuestionIndex}
+        questions={questions}
+      />
 
       {userAnswers.map((val: string, index: number) => (
         <div className="Phrase" key={index}>

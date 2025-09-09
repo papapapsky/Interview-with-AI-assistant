@@ -16,6 +16,8 @@ export const thematicPrompt = ({
 You are to generate only a JavaScript object.
 
 Do not include any explanation, no markdown formatting, no backticks, no comments, no quotation outside of key-value structure. Do not write “Here is the object”, “This is JSON”, or anything else.
+Questions must be short, there is no need to burden the interlocutor too much
+Questions should be only theoretical, their solutions should be oral
 
 Only output the object itself, and nothing else.
 

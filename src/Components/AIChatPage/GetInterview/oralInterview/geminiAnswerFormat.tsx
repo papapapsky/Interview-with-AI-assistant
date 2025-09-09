@@ -1,6 +1,7 @@
 import HR from "../../../../../public/HR.png";
 import { useState, useLayoutEffect } from "react";
 import { Link } from "react-router-dom";
+import { TextFormat } from "./textFormat/ExplanationFormat";
 
 import hljs from "highlight.js";
 import "highlight.js/styles/tokyo-night-dark.css";
@@ -53,14 +54,14 @@ export const GeminiAnswerFormat = ({
         {geminiResponse.explanation &&
           geminiResponse.explanation.map((value: string, index: number) => (
             <div key={index} className="explanation">
-              <h4>{value}</h4>
+              <TextFormat text={value} />
             </div>
           ))}
         {geminiResponse.additionToAnswer.additionText &&
           geminiResponse.additionToAnswer.additionText.map(
             (value: string, index: number) => (
               <div key={index} className="additionToAnswer">
-                <h4>{value}</h4>
+                <TextFormat text={value} />
               </div>
             )
           )}
@@ -71,20 +72,22 @@ export const GeminiAnswerFormat = ({
             </code>
           </pre>
         )}
-        {nextQuestion && (
-          <p>
-            <span className="nextQuestion">
-              The{" "}
-              {Number(userAnswersQuantity) <= Object.keys(questions).length
-                ? userAnswersQuantity
-                : Object.keys(questions).length}
-              /{Object.keys(questions).length} Question:
-            </span>{" "}
-            {nextQuestion}
-          </p>
-        )}
         <br />
       </div>
+      {nextQuestion && (
+        <div className="nextQuestion">
+          <span>
+            The{" "}
+            {Number(userAnswersQuantity) <= Object.keys(questions).length
+              ? userAnswersQuantity
+              : Object.keys(questions).length}
+            /{Object.keys(questions).length} Question:
+          </span>{" "}
+          <span className="nextQuestionColor">
+            <TextFormat text={nextQuestion} />
+          </span>
+        </div>
+      )}
       {!nextQuestion && (
         <div className="resultBox">
           <h1>

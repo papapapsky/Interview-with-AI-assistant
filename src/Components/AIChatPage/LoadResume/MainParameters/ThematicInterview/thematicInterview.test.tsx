@@ -156,7 +156,6 @@ describe("thematicInterview test", () => {
     expect(geminiFetch).toHaveBeenCalled();
 
     await waitFor(() => {
-      //catch
       expect(logErrorSpy).toHaveBeenCalled();
       expect(props.setQuestions).not.toHaveBeenCalledTimes(1);
       expect(props.setFetchLoading).toHaveBeenCalledTimes(2);

@@ -10,6 +10,7 @@ import "highlight.js/styles/tokyo-night-dark.css";
 
 import CodeMirror from "@uiw/react-codemirror";
 import { javascript } from "@codemirror/lang-javascript";
+import { TextFormat } from "../../../oralInterview/textFormat/ExplanationFormat";
 
 export const TechTaskPresentational = ({ ...props }: TypeTechTask) => {
   const [codeExampleAnimation, setCodeExampleAnimation] =
@@ -64,7 +65,7 @@ export const TechTaskPresentational = ({ ...props }: TypeTechTask) => {
               </h5>
               {props.tasks[0].taskExplanation.map(
                 (val: string, index: number) => (
-                  <h4 key={index}>{val}</h4>
+                  <TextFormat text={val} key={index} />
                 )
               )}
             </div>

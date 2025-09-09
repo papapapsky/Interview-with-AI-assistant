@@ -1,0 +1,12 @@
+.pre {
+  margin: 0;
+  display: inline-flex;
+}
+
+.code {
+  padding: 5px;
+  font-weight: 500;
+  color: #cb98ffbc;
+  margin: 2px;
+  background-color: rgba(0, 0, 62, 0.262);
+}
