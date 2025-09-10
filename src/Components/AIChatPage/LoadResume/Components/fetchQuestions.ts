@@ -25,17 +25,17 @@ export const fetchQuestions = async ({
       setFetchError(true);
       return;
     }
+    console.log("as");
     const response = await geminiFetch(
       apiKey,
       `${UserResume}`,
       oralQuestionConfig(questionsQuantity)
     );
-    console.log(UserResume);
-    console.log(response.text);
-    const parsed = JSON.parse(`${response.text}`);
+    console.log(response.response);
+    const parsed = JSON.parse(`${response.response}`);
 
     setQuestions(parsed);
-    localStorage.setItem("oral responses", `${response.text}`);
+    localStorage.setItem("oral responses", `${response.response}`);
   } catch (err) {
     setFetchError(true);
   } finally {
