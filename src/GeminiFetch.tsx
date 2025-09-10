@@ -3,7 +3,7 @@ export const geminiFetch = async (
   text: string,
   geminiConfig?: object
 ) => {
-  const AImessage = await fetch("http://31.169.124.125:3000/fetchToGemini", {
+  const AImessage = await fetch("https://31.169.124.125:3000/fetchToGemini", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
