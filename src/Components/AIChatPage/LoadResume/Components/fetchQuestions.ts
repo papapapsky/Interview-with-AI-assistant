@@ -31,6 +31,7 @@ export const fetchQuestions = async ({
       `${UserResume}`,
       oralQuestionConfig(questionsQuantity)
     );
+    console.log(UserResume);
     console.log(response.response);
     const parsed = JSON.parse(`${response.response}`);
 

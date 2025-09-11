@@ -32,19 +32,19 @@ OUTPUT TEMPLATE:
 {
   "tasks": [
     {
-      "taskExplanation": "string (interview-style question)",
-      "exampleCode": "string (30-50 lines max)",
-      "technologies": ["string", "string"]
+      "taskExplanation":  ["string", "string"] (30-50 lines max),
+      "exampleCode": ["string", "string"] (30-50 lines max),
+      "technologies": "string", "string"
     },
     {
       "taskExplanation": "string (interview-style question)", 
-      "exampleCode": "string (30-50 lines max)",
-      "technologies": ["string", "string"]
+      "exampleCode": ["string", "string"] (30-50 lines max),
+      "technologies": "string", "string"
     },
     {
       "taskExplanation": "string (interview-style question)",
-      "exampleCode": "string (30-50 lines max)", 
-      "technologies": ["string", "string"]
+      "exampleCode": ["string", "string"] (30-50 lines max), 
+      "technologies": "string", "string"
     }
   ]
 }
@@ -59,9 +59,9 @@ STRICT REQUIREMENTS:
 7. Tasks must be challenging and test deep understanding
 8. No introductory text, no markdown, no code formatting in the response
 9. Only tech Tasks, no oral responses (code example as an example).
+10. If you write some example or code, please place in backticks this word
 
 ABSOLUTELY NO: 
-- Backticks, quotes, or wrappers around the object
 - Additional explanations outside the object structure  
 - Placeholder text or generic examples
 - Tasks unrelated to the resume content

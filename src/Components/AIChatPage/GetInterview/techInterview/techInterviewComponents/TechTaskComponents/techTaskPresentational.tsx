@@ -70,7 +70,6 @@ export const TechTaskPresentational = ({ ...props }: TypeTechTask) => {
               )}
             </div>
           </div>
-
           <div className="codeExampleBox">
             <h3>Code example</h3>
             <details>
@@ -88,9 +87,7 @@ export const TechTaskPresentational = ({ ...props }: TypeTechTask) => {
               </div>
             </details>
           </div>
-
           <br />
-
           <div className="userTextArea">
             <h3>Write your response here:</h3>
             <CodeMirror
@@ -140,7 +137,6 @@ export const TechTaskPresentational = ({ ...props }: TypeTechTask) => {
           </div>
         </>
       )}
-
       <InterviewEnd
         techQuestionsQuantity={props.questionsQuantity}
         oralCorrectAnswers={state.oralCorrectAnswers}

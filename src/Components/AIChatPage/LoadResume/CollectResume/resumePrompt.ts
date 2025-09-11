@@ -34,24 +34,24 @@ export const generateQuestionsPrompt = ({
   userResume,
   questionsQuantity,
 }: TypeResumePropmpts) => {
-  console.log("asdadasdjkashldkjahslkjfdhaslkjf");
-  return `PLEASE, RESPOND IN ${language}.
-You are an experienced technical interviewer.
-Use this resume: ${userResume}
-Create exactly ${questionsQuantity} questions that are relevant to a real job interview for the candidate based on their resume.
+  return `RESPOND STRICTLY IN ${language}. 
+You are an experienced technical interviewer. 
+Carefully analyze this resume: ${userResume}
 
-following strict format:
-{"question1":"question","question2":"question",...}
+Generate EXACTLY ${questionsQuantity} short, precise, theoretical interview questions relevant to the candidate’s profession. 
+NO explanations, NO comments, NO markdown, NO lists, NO triple backticks. 
 
-Only provide questions. No explanations, no formatting, no markdown, no triple backticks.
-Questions must be short, there is no need to burden the interlocutor too much
-Questions should be only theoretical, their solutions should be oral
+Your response MUST BE a valid JSON object ONLY, following this STRICT format:
+{"question1":"...","question2":"...","question3":"..." etc.} 
 
-Each key must strictly follow the format: question1, question2, question3, etc.
-Do not use any characters, symbols, words, or signs outside the object.
+MANDATORY RULES:
+- Each key MUST be named exactly: question1, question2, question3, etc. No deviations. 
+- Only plain text values for questions. No quotes inside values, no special characters, no punctuation other than standard question marks. 
+- Each question MUST be a single sentence. Keep them concise and realistic. 
+- ABSOLUTELY NO code-writing questions. Only oral theoretical discussion. 
+- Questions MUST be domain-relevant: if the resume is not about programming, generate questions about the candidate’s actual profession. 
+- Output MUST be valid JSON and parseable without errors. 
+- Do not add any characters, comments, text, or formatting outside the JSON object.
 
-Questions must not require writing code — only verbal technical discussion is allowed.
-If it is clear from the resume that the candidate is not a programmer, generate domain-relevant questions based on the candidate's profession.
-
-This must look like a real technical interview. Keep it realistic, precise, and concise. Only return the object with the questions.`;
+FAILURE TO FOLLOW THESE RULES INVALIDATES THE OUTPUT.`;
 };

@@ -55,7 +55,6 @@ export const aiMessageGenerate = async ({
       }
       const AImessage = await geminiFetch(apiKey, GPTprompt, interviewConfig);
 
-      console.log(AImessage);
       const formattedResponse = JSON.parse(`${AImessage.response}`)[0];
       if (formattedResponse.answerStatus === "right") {
         setState({

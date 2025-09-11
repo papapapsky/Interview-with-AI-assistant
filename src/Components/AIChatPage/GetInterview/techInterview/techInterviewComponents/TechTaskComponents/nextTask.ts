@@ -22,7 +22,8 @@ export const nextTask = ({
         codeValueRef.current
       );
       const geminiChecks = await geminiFetch(apiKey, CheckPrompt);
-      const result = JSON.parse(`${geminiChecks.text}`);
+      console.log(geminiChecks);
+      const result = JSON.parse(`${geminiChecks.response}`);
 
       if (result.checkCorrectlyAnswer) {
         codeValueRef.current = "";

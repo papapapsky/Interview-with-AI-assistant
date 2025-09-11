@@ -50,7 +50,7 @@ export const CollectResume = ({ setResumeText }: CollectResumeProps) => {
       questionsQuantity: state.questionsQuantity,
     });
 
-    localStorage.setItem("userResume", userResume);
+    localStorage.setItem("userResume", `${sentText}`);
     setResumeText(sentText);
   };
 

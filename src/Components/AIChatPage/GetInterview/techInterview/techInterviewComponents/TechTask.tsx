@@ -49,12 +49,14 @@ export const TechTask = ({ ...props }: ITechTaskProps) => {
         TasksPrompt,
         techInterviewConfig
       );
-
+      console.log(techTasks.response);
       const parsedTasks = JSON.parse(`${techTasks.response}`);
-      const validation = geminiValidation(parsedTasks);
+      const validation = geminiValidation(parsedTasks.tasks);
 
       if (validation) {
-        props.setTasks(parsedTasks);
+        props.setError(false);
+        props.setTasks(parsedTasks.tasks);
+        console.log(parsedTasks.tasks[0]);
       } else {
         props.setError(true);
       }
