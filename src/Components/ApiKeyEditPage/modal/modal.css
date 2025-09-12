@@ -1,0 +1,130 @@
+.modalParent {
+  z-index: 999;
+  background-color: rgba(0, 0, 0, 0.476);
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+}
+
+.apiKeyContainer {
+  display: flex;
+  transition: 0.2s;
+
+  cursor: pointer;
+  user-select: none;
+  margin-bottom: 20px;
+  background-color: rgb(13, 13, 13);
+  border-radius: 5px;
+  padding: 0px 10px 0px 10px;
+}
+
+.apiKey {
+  transition: 0.3s;
+}
+
+.clipboard {
+  padding-bottom: 15px;
+  padding: -20px;
+  z-index: 5;
+  background-color: rgba(0, 0, 0, 0.203);
+
+  transition: 0.3s;
+  position: absolute;
+  left: 50%;
+  width: 83%;
+
+  transform: translate(-50%);
+
+  opacity: 0;
+  min-width: 20px;
+}
+
+.clipboard:hover {
+  background-color: rgba(0, 0, 0, 0.203);
+}
+
+.apiKeyContainer:hover {
+  background-color: rgb(25, 25, 25);
+
+  .apiKey {
+    opacity: 0.25;
+  }
+
+  .clipboard {
+    opacity: 1;
+  }
+}
+
+.modalChildren h2 {
+  margin: 10px;
+  color: white;
+  font-size: 1.5rem;
+}
+
+.modalChildren {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+  border-radius: 7px;
+  max-width: 450px;
+  padding: 20px;
+
+  background-color: rgb(34, 34, 34);
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  transform: translate(-50%, -50%);
+}
+
+.toast {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: #222;
+  color: white;
+  padding: 12px 18px;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  z-index: 1000;
+  font-size: 0.95rem;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  animation: fadeIn 0.2s ease-out;
+}
+
+.toast p {
+  margin: 0;
+}
+
+.toast-timer {
+  height: 3px;
+  background: #4caf50;
+  border-radius: 2px;
+  animation: shrink 2s linear forwards;
+}
+
+@keyframes shrink {
+  from {
+    width: 100%;
+  }
+  to {
+    width: 0%;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

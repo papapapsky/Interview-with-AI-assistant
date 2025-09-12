@@ -1,5 +1,6 @@
-import express from "express";
+import express, { type Request, type Response } from "express";
 import path from "path";
+import fs from "fs/promises";
 import { fileURLToPath } from "url";
 import cors from "cors";
 import { GoogleGenerativeAI } from "@google/generative-ai";
@@ -68,7 +69,7 @@ const geminiFetch = async (
   }
 };
 
-app.post("/fetchToGemini", async (req, res) => {
+app.post("/fetchToGemini", async (req: Request, res: Response) => {
   const { ApiKey, text, geminiConfig } = req.body;
 
   try {
@@ -88,8 +89,27 @@ app.post("/fetchToGemini", async (req, res) => {
   }
 });
 
-// const __filename = fileURLToPath(import.meta.url);
-// const __dirname = path.dirname(__filename);
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+type parsedKeys = string[];
+
+app.get("/getApiKey", async (req: Request, res: Response) => {
+  const srcToKeys = path.resolve(__dirname, "keys", "keys.json");
+  const keys: string = await fs.readFile(srcToKeys, "utf-8");
+
+  const parsedKeys = JSON.parse(keys);
+  const numOfKeys = parsedKeys.length;
+  const randomNumber = Math.floor(Math.random() * (numOfKeys + 1));
+
+  const pickedKey: string = parsedKeys[randomNumber];
+
+  if (pickedKey) {
+    return res.status(200).json({ key: pickedKey });
+  } else {
+    return res.status(400);
+  }
+});
 
 // app.use(express.static(path.join(__dirname, "..", "dist")));
 
