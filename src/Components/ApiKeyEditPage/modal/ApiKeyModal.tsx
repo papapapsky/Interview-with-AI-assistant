@@ -5,9 +5,10 @@ import { createPortal } from "react-dom";
 interface IProps {
   setActive: (active: boolean) => void;
   apiKey: string;
+  setApiKey: (apiKey: string) => void;
 }
 
-export const ApiKeyModal = ({ setActive, apiKey }: IProps) => {
+export const ApiKeyModal = ({ setApiKey, setActive, apiKey }: IProps) => {
   const [showToast, setShowToast] = useState<boolean>(false);
   const [timeOutActive, setTimeoutActive] = useState<boolean>(false);
   const modalElement = document.getElementById("modalWindow") as HTMLDivElement;
@@ -22,6 +23,15 @@ export const ApiKeyModal = ({ setActive, apiKey }: IProps) => {
           setTimeoutActive(false);
         }, 2000);
       });
+    }
+  };
+
+  const deleteApiKey = () => {
+    const currentApiKey = localStorage.getItem("apiKey");
+    if (currentApiKey) {
+      setApiKey("");
+      setActive(false);
+      localStorage.setItem("apiKey", "");
     }
   };
 
@@ -44,19 +54,28 @@ export const ApiKeyModal = ({ setActive, apiKey }: IProps) => {
             </button>
             <p className="apiKey">{apiKey}</p>
           </div>
-          <button
-            style={{ outline: "none" }}
-            onClick={() => setActive(false)}
-            className="modalButton"
-          >
-            Close
-          </button>
+          <div className="buttonSection">
+            <button
+              style={{ outline: "none" }}
+              onClick={() => setActive(false)}
+              className="modalButton"
+            >
+              Close
+            </button>
+            <button
+              style={{ outline: "none" }}
+              onClick={() => deleteApiKey()}
+              className="modalButton deleteKey"
+            >
+              Remove API key
+            </button>
+          </div>
         </div>
       </div>
 
       {showToast && (
         <div className="toast">
-          <p>Успешно скопировано!</p>
+          <p>Succesfully coped!</p>
           <div className="toast-timer"></div>
         </div>
       )}

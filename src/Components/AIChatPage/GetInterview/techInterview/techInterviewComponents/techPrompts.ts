@@ -34,17 +34,17 @@ OUTPUT TEMPLATE:
     {
       "taskExplanation":  ["string", "string"] (30-50 lines max),
       "exampleCode": ["string", "string"] (30-50 lines max),
-      "technologies": "string", "string"
+      "technologies": "string", "string" (separated by space and commas)
     },
     {
       "taskExplanation": "string (interview-style question)", 
       "exampleCode": ["string", "string"] (30-50 lines max),
-      "technologies": "string", "string"
+      "technologies": "string", "string" (separated by space and commas)
     },
     {
       "taskExplanation": "string (interview-style question)",
       "exampleCode": ["string", "string"] (30-50 lines max), 
-      "technologies": "string", "string"
+      "technologies": "string", "string" (separated by space and commas)
     }
   ]
 }
@@ -60,6 +60,8 @@ STRICT REQUIREMENTS:
 8. No introductory text, no markdown, no code formatting in the response
 9. Only tech Tasks, no oral responses (code example as an example).
 10. If you write some example or code, please place in backticks this word
+11. All important moments in task take in **, make more of these moments
+12. All code moments take in backticks
 
 ABSOLUTELY NO: 
 - Additional explanations outside the object structure  

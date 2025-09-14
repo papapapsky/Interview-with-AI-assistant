@@ -5,6 +5,10 @@ import { mainContext } from "../../../../../MainContext";
 import { thematicPrompt } from "./thematicPrompt";
 import { oralQuestionConfig } from "../../../GetInterview/geminiConfigs";
 
+type parsedGeminiFetchType = {
+  response: string;
+};
+
 type props = {
   setFetchError: (fetchError: boolean) => void;
   setFetchLoading: (fetchLoading: boolean) => void;
@@ -36,14 +40,16 @@ export const ThematicInterview = ({
       });
       localStorage.setItem("userResume", thematicPromptText);
 
-      const geminiResponse = await geminiFetch(
+      const geminiResponse: parsedGeminiFetchType = await geminiFetch(
         apiKey,
         thematicPromptText,
         oralQuestionConfig
       );
-      const parsed = JSON.parse(`${geminiResponse.text}`);
+
+      const parsed = JSON.parse(`${geminiResponse.response}`);
       setQuestions(parsed);
-      localStorage.setItem("oral responses", `${geminiResponse.text}`);
+
+      localStorage.setItem("oral responses", `${geminiResponse.response}`);
     } catch (err) {
       console.error(err);
       setFetchError(true);

@@ -11,7 +11,7 @@ const PORT = 3000;
 app.use(express.json());
 app.use(cors());
 
-const cleanAndWrap = (rawText) => {
+const cleanAndWrap = (rawText: string) => {
   let text = rawText.trim();
 
   if (text.startsWith('"') && text.endsWith('"')) {
@@ -20,6 +20,8 @@ const cleanAndWrap = (rawText) => {
 
   text = text
     .replace(/^```json\s*/i, "")
+    .replace(/^```javascript\s*/i, "")
+    .replace(/^```python\s*/i, "")
     .replace(/^```\s*/i, "")
     .replace(/```$/i, "");
 
@@ -29,7 +31,7 @@ const cleanAndWrap = (rawText) => {
 const geminiFetch = async (
   ApiKey: string,
   text: string,
-  geminiConfig?: object
+  geminiConfig?: any
 ) => {
   const AI = new GoogleGenerativeAI(ApiKey);
 
@@ -37,7 +39,7 @@ const geminiFetch = async (
     const model = AI.getGenerativeModel({ model: "gemini-2.0-flash" });
 
     const allowedKeys = ["temperature", "topP", "topK", "maxOutputTokens"];
-    const filteredConfig = {};
+    const filteredConfig: any = {};
 
     if (geminiConfig) {
       for (const key of allowedKeys) {
@@ -85,14 +87,12 @@ app.post("/fetchToGemini", async (req: Request, res: Response) => {
 
     return res.status(201).json({ response: output });
   } catch (error) {
-    return res.status(500).json({ error: error.message });
+    return res.status(500).json({ error: error });
   }
 });
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-
-type parsedKeys = string[];
 
 app.get("/getApiKey", async (req: Request, res: Response) => {
   const srcToKeys = path.resolve(__dirname, "keys", "keys.json");
@@ -111,11 +111,11 @@ app.get("/getApiKey", async (req: Request, res: Response) => {
   }
 });
 
-// app.use(express.static(path.join(__dirname, "..", "dist")));
+app.use(express.static(path.join(__dirname, "..", "dist")));
 
-// app.get("*", (req, res) => {
-//   res.sendFile(path.join(__dirname, "..", "dist", "index.html"));
-// });
+app.get("/{*any}", (req, res) => {
+  res.sendFile(path.join(__dirname, "..", "dist", "index.html"));
+});
 
 app.listen(PORT, () => {
   console.log(`server running on http://localhost:${PORT}`);

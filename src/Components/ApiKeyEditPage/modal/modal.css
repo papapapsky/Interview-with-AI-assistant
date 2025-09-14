@@ -6,6 +6,12 @@
   height: 100vh;
 }
 
+.buttonSection {
+  display: flex;
+  justify-content: space-around;
+  gap: 25px;
+}
+
 .apiKeyContainer {
   display: flex;
   transition: 0.2s;
@@ -16,6 +22,14 @@
   background-color: rgb(13, 13, 13);
   border-radius: 5px;
   padding: 0px 10px 0px 10px;
+}
+
+.deleteKey {
+  background-color: rgb(255, 45, 45);
+}
+
+.deleteKey:hover {
+  background-color: rgba(255, 45, 45, 0.491);
 }
 
 .apiKey {

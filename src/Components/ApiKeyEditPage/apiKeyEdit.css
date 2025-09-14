@@ -1,11 +1,18 @@
 .apiKeyEditPage {
   opacity: 0;
-  max-width: 1200px;
+  max-width: 900px;
   margin: 20px auto;
 }
 
 .headLines {
   color: var(--linkColor);
+}
+
+.buttons {
+  margin: 0 auto;
+  width: 50%;
+  display: flex;
+  justify-content: center;
 }
 
 .showsApiKeyContainer {
@@ -23,6 +30,15 @@
 
   margin-top: 30px;
   font-size: 32px;
+}
+
+.regenerateBtn {
+  background-color: rgb(0, 153, 0);
+}
+
+.regenerateBtn:hover {
+  outline: none;
+  background-color: rgb(0, 193, 0);
 }
 
 .HyperLink {
@@ -71,11 +87,13 @@
   }
 }
 
-.confirmBtn {
-  display: block;
-  margin: 0 auto;
+.confirmBtn,
+.regenerateBtn {
+  margin: 10px;
+}
 
-  margin-top: 30px;
+.regenerateBtn:focus {
+  outline: none;
 }
 
 .confirmBtn:focus {

@@ -24,7 +24,6 @@ export const TechTaskPresentational = ({ ...props }: TypeTechTask) => {
   const codeValueRef = useRef(
     "//This redactor recommended for javascript,\n//if you write on another language we recommended https://codepen.io/"
   );
-  TechTaskPresentational;
 
   useEffect(() => {
     document.querySelectorAll("pre code").forEach((block) => {

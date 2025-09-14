@@ -19,17 +19,24 @@ export const ApiKeyEdit = () => {
     setAnimation(true);
   }, []);
 
-  const getApiKey = async () => {
-    if (!loading && !apiKey) {
-      setLoading(true);
-      const key = await getKey();
-      if (key) {
-        setApiKey(key);
-        localStorage.setItem("apiKey", key);
-        setSave(true);
-      }
+  const getKeyBody = async () => {
+    setSave(false);
+    setLoading(true);
+    const key: string | undefined = await getKey();
+
+    if (key) {
+      setApiKey(key);
+      localStorage.setItem("apiKey", key);
+      setSave(true);
     }
     setLoading(false);
+    return key;
+  };
+
+  const getApiKey = async () => {
+    if (!loading && !apiKey) {
+      getKeyBody();
+    }
   };
 
   const openModal = () => {
@@ -42,7 +49,13 @@ export const ApiKeyEdit = () => {
 
   return (
     <>
-      {modal && <ApiKeyModal setActive={setModal} apiKey={apiKey} />}
+      {modal && (
+        <ApiKeyModal
+          setApiKey={setApiKey}
+          setActive={setModal}
+          apiKey={apiKey}
+        />
+      )}
       <div
         className={`apiKeyEditPage ${
           animation ? "showParametersAnimation" : ""
@@ -65,9 +78,21 @@ export const ApiKeyEdit = () => {
             )}
           </div>
         </div>
-        <button onClick={getApiKey} className="confirmBtn">
-          Get API key
-        </button>
+        <div className="buttons">
+          <button onClick={() => getApiKey()} className="confirmBtn">
+            Get API key
+          </button>
+          <button
+            onClick={() => {
+              if (apiKey && !loading) {
+                getKeyBody();
+              }
+            }}
+            className="regenerateBtn"
+          >
+            Regenerate key
+          </button>
+        </div>
         {save && <h3 className="SavedMessage">Succesfully generated!</h3>}
         {loading && <div className="loader" style={{ marginTop: 20 }}></div>}
       </div>
