@@ -15,7 +15,7 @@ export const ApiKeyModal = ({ setApiKey, setActive, apiKey }: IProps) => {
 
   const copyApiKey = () => {
     if (!timeOutActive) {
-      navigator.clipboard.writeText(apiKey).then(() => {
+      navigator.clipboard.writeText("apiKey").then(() => {
         setShowToast(true);
         setTimeoutActive(true);
         setTimeout(() => {

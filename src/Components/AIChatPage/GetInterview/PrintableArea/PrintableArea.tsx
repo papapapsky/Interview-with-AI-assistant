@@ -1,4 +1,7 @@
 import { useEffect, useRef, useState } from "react";
+import CodeMirror from "@uiw/react-codemirror";
+import { javascript } from "@codemirror/lang-javascript";
+
 import "./printableArea.css";
 
 interface IPrintableAreaProps {
@@ -11,8 +14,11 @@ interface IPrintableAreaProps {
 }
 
 export default function PrintableArea(props: IPrintableAreaProps) {
-  const [maximize, setMaximize] = useState<boolean>(false);
-  const InputRef = useRef<HTMLTextAreaElement>(null);
+  const [maximize, setMaximize] = useState(false);
+  const [codeMode, setCodeMode] = useState(false);
+
+  // ref для хранения значения текста/кода
+  const inputValueRef = useRef<string>("");
 
   useEffect(() => {
     const geminiHTMLAnswers = document.querySelectorAll(".GeminiAnswer");
@@ -38,19 +44,22 @@ export default function PrintableArea(props: IPrintableAreaProps) {
   }, [props.userAnswers]);
 
   const SendAnswer = () => {
-    const userAnswer = InputRef.current?.value.trim();
+    const userAnswer = inputValueRef.current.trim();
 
     if (!props.loading && props.allowPasting) {
       if (userAnswer && props.currentQuestion) {
         props.handleUserAnswer(userAnswer);
-        if (InputRef.current) {
-          InputRef.current.value = "";
-        }
+        inputValueRef.current = ""; // очищаем
       }
     }
   };
+
   const maximizeFiled = () => {
     setMaximize((prev) => !prev);
+  };
+
+  const toCodeMode = () => {
+    setCodeMode((prev) => !prev);
   };
 
   return (
@@ -60,21 +69,45 @@ export default function PrintableArea(props: IPrintableAreaProps) {
       <div
         className={`printableArea ${maximize ? "printableAreaFullscreen" : ""}`}
       >
-        <textarea
-          data-testid="userInputArea"
-          ref={InputRef}
-          placeholder="Your response"
-          className={`printableTextArea ${maximize ? "textAreaFullscren" : ""}`}
-        />
+        {!codeMode ? (
+          <textarea
+            data-testid="userInputArea"
+            placeholder="Your response"
+            className={`printableTextArea ${
+              maximize ? "textAreaFullscren" : ""
+            }`}
+            defaultValue={inputValueRef.current}
+            onChange={(e) => {
+              inputValueRef.current = e.target.value;
+              console.log(inputValueRef);
+            }}
+          />
+        ) : (
+          <CodeMirror
+            className="printableCodeArea"
+            value={inputValueRef.current}
+            theme="dark"
+            extensions={[javascript()]}
+            onChange={(value) => {
+              inputValueRef.current = value;
+            }}
+          />
+        )}
         <div className="buttonsDiv">
           <button onClick={SendAnswer} className="printableAreaButton">
             ⬆
           </button>
           <button
-            onClick={() => maximizeFiled()}
+            onClick={maximizeFiled}
             className="fullScreenBtn printableBtn"
           >
             🗖
+          </button>
+          <button
+            onClick={toCodeMode}
+            className="fullScreenBtn printableBtn toCodeBtn"
+          >
+            {"</>"}
           </button>
         </div>
       </div>

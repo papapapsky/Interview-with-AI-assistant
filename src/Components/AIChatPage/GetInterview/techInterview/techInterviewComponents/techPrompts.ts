@@ -62,6 +62,7 @@ STRICT REQUIREMENTS:
 10. If you write some example or code, please place in backticks this word
 11. All important moments in task take in **, make more of these moments
 12. All code moments take in backticks
+13. The code example may not contain code, for example, if the person is not a programmer. Keep this in mind.
 
 ABSOLUTELY NO: 
 - Additional explanations outside the object structure  

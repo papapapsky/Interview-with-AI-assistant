@@ -17,6 +17,50 @@ body {
   margin-bottom: 202px;
 }
 
+.answerTypeChange {
+  display: flex;
+}
+
+.userTextArea h3 {
+  margin: 0;
+}
+
+.answerTypeBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  background-color: rgb(44, 44, 44);
+  margin: 20px;
+}
+
+.techPrintableArea {
+  height: 500px;
+  font-size: 1rem;
+  background-color: rgb(39, 43, 51);
+  border: 2px solid var(--linkColor);
+  border-radius: 5px;
+  width: 97%;
+
+  resize: none;
+}
+
+.answerTypeBtn:hover {
+  background-color: var(--buttonColor);
+}
+
+.activeTypeBtn {
+  background-color: var(--buttonColor);
+}
+
+.activeTypeBtn:hover {
+  background-color: rgb(94, 31, 149);
+}
+
+.answerTypeBtn:focus {
+  outline: none;
+}
+
 .mistake {
   font-weight: 700;
   font-size: 1.5rem;

@@ -37,7 +37,6 @@ export const aiMessageGenerate = async ({
 
   const currentQuestionKey = `question${userAnswers.length}`;
   const userAnswerKey = userAnswers.length - 1;
-  console.log("asdasdas");
 
   setError(false);
   try {
@@ -56,7 +55,8 @@ export const aiMessageGenerate = async ({
       const AImessage = await geminiFetch(apiKey, GPTprompt, interviewConfig);
 
       const formattedResponse = JSON.parse(`${AImessage.response}`)[0];
-      if (formattedResponse.answerStatus === "right") {
+      console.log(formattedResponse);
+      if (formattedResponse.answerStatus === "correct") {
         setState({
           ...state,
           oralCorrectAnswers: state.oralCorrectAnswers + 1,

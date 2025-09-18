@@ -5,7 +5,7 @@ type dataType = {
 export const getKey = async () => {
   console.log("get");
   try {
-    const response = await fetch("http://localhost:3000/getApiKey");
+    const response = await fetch("http://31.169.124.125:3000/getApiKey");
     if (!response.ok) {
       throw new Error("failed to fetch");
     }

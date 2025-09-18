@@ -28,12 +28,27 @@ const cleanAndWrap = (rawText: string) => {
   return text;
 };
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const srcToNotifies = path.resolve(__dirname, "notifies", "notifies.json");
+
 const geminiFetch = async (
   ApiKey: string,
   text: string,
   geminiConfig?: any
 ) => {
   const AI = new GoogleGenerativeAI(ApiKey);
+  const currentNotifies = await fs.readFile(srcToNotifies, "utf-8");
+  const parsedNotifies = JSON.parse(currentNotifies);
+
+  parsedNotifies.push({ notify: text });
+
+  await fs.writeFile(
+    srcToNotifies,
+    JSON.stringify(parsedNotifies, null, 2),
+    "utf-8"
+  );
 
   try {
     const model = AI.getGenerativeModel({ model: "gemini-2.0-flash" });
@@ -91,19 +106,16 @@ app.post("/fetchToGemini", async (req: Request, res: Response) => {
   }
 });
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
 app.get("/getApiKey", async (req: Request, res: Response) => {
   const srcToKeys = path.resolve(__dirname, "keys", "keys.json");
   const keys: string = await fs.readFile(srcToKeys, "utf-8");
 
   const parsedKeys = JSON.parse(keys);
-  const numOfKeys = parsedKeys.length;
+  const numOfKeys = parsedKeys.length - 1;
   const randomNumber = Math.floor(Math.random() * (numOfKeys + 1));
 
   const pickedKey: string = parsedKeys[randomNumber];
-
+  console.log(pickedKey);
   if (pickedKey) {
     return res.status(200).json({ key: pickedKey });
   } else {
