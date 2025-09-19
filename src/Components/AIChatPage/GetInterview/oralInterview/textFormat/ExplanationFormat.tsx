@@ -22,7 +22,11 @@ export const TextFormat = ({ text }: Props) => {
           );
         } else {
           return (
-            <div key={index} style={{ display: "inline" }}>
+            <div
+              key={index}
+              style={{ display: "inline" }}
+              className="explanationText"
+            >
               {part.replace(/\\`/g, "`").replace(/\\\*/g, "*")}
             </div>
           );

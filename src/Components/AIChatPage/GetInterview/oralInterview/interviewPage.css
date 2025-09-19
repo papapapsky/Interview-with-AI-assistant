@@ -103,14 +103,9 @@ h4 {
   padding: 10px;
   border-radius: 7px;
   width: 80%;
-  background-color: rgba(36, 36, 36, 0.584);
   margin-left: 10px;
   font-weight: 500;
   color: var(--linkColor);
-}
-
-.nextQuestionColor {
-  color: white;
 }
 
 @keyframes aiMessageShow {
@@ -142,13 +137,11 @@ h4 {
 
 .UserAnswer {
   align-self: flex-end;
-  background-color: rgba(66, 66, 66, 0.534);
 }
 
 .GeminiAnswer {
   margin-top: 20px;
   text-align: left;
-  background-color: rgba(48, 48, 48, 0.534);
 }
 
 .GeminiAnswer p {

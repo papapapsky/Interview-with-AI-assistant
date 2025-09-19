@@ -5,7 +5,6 @@ h1 {
 h2 {
   font-size: 18px;
   text-align: center;
-  color: rgba(255, 255, 255, 0.258);
 }
 
 input[type="file"] {
@@ -33,12 +32,12 @@ form {
 }
 
 .loadFileForm label:hover {
-  border-color: rgba(4, 4, 4, 0.675);
+  border-color: rgb(4, 4, 4);
   background-color: var(--buttonColorHover);
 }
 
 .supportedFormats {
-  color: rgba(208, 208, 208, 0.995);
+  color: rgb(208, 208, 208);
 }
 
 label {

@@ -81,4 +81,146 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+
+  input {
+    color: white;
+    background-color: rgba(255, 255, 255, 0);
+  }
+
+  input::placeholder {
+    color: rgba(255, 255, 255, 0.607);
+  }
+
+  select {
+    color: white;
+  }
+
+  textarea {
+    color: white;
+  }
+
+  h2 {
+    color: black;
+  }
+
+  .thematicInterview,
+  .fullInterviewBtn {
+    color: black;
+  }
+
+  .explanationText {
+    color: black;
+  }
+
+  .thematicInterview:hover,
+  .fullInterviewBtn:hover {
+    background-color: var(--linkColor);
+  }
+
+  .changedBtn {
+    color: white;
+  }
+
+  .writeTopic {
+    color: black;
+    background-color: #ffffff;
+  }
+
+  .writeTopic::placeholder {
+    color: rgba(0, 0, 0, 0.507);
+  }
+
+  .printableBackdrop {
+    display: none;
+  }
+
+  .UserAnswer {
+    border: 2px solid black;
+    align-self: flex-end;
+    background-color: rgb(255, 255, 255);
+  }
+
+  .GeminiAnswer {
+    margin-top: 20px;
+    text-align: left;
+    background-color: rgb(255, 255, 255);
+  }
+
+  .nextQuestion {
+    background-color: white;
+  }
+
+  .nextQuestionColor {
+    color: rgb(0, 0, 0);
+  }
+
+  .printableArea {
+    border: 1px solid rgb(80, 80, 80);
+    background-color: rgb(255, 255, 255);
+  }
+
+  .printableBackdrop {
+    background-color: white;
+  }
+
+  .printableTextArea {
+    border: 2px solid black;
+    background-color: white;
+  }
+
+  .printableCodeArea {
+    border: 1px solid black;
+  }
+
+  .printableCodeArea .cm-editor {
+    background-color: rgb(255, 255, 255);
+  }
+
+  header {
+    border-bottom: 2px solid black;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .UserAnswer {
+    background-color: rgb(58, 58, 58);
+  }
+
+  .GeminiAnswer {
+    background-color: rgb(29, 29, 29);
+  }
+
+  .nextQuestion {
+    background-color: rgb(36, 36, 36);
+  }
+
+  .nextQuestionColor {
+    color: white;
+  }
+
+  .writeTopic {
+    color: white;
+    background-color: rgba(36, 36, 36, 0);
+  }
+
+  .printableBackdrop {
+    background-color: #171717;
+  }
+
+  .printableCodeArea {
+    background-color: rgb(36, 36, 36);
+  }
+
+  .printableArea {
+    border: 1px solid rgb(80, 80, 80);
+    background-color: rgb(49, 49, 49);
+  }
+
+  .printableTextArea {
+    background-color: rgb(36, 36, 36);
+  }
+
+  header {
+    background-color: var(--headerBackgroundColor);
+  }
 }

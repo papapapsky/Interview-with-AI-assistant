@@ -2,7 +2,6 @@ header {
   display: flex;
   font-size: 20px;
   padding-left: 18.5vw;
-  background-color: var(--headerBackgroundColor);
 }
 
 @media (max-width: 625px) {

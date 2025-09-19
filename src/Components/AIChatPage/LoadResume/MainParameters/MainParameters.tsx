@@ -79,7 +79,7 @@ export const MainParameters = ({ setMainParameters }: TypeProps) => {
   return (
     <div className="mainParameters">
       <div>
-        <div className="apiKeyLink">
+        <div className="apiKeyLink" style={{ marginTop: 10 }}>
           <CustomLink to="/ApiKeyEdit" className="CustomLinkBtn">
             Edit API key
           </CustomLink>
